@@ -1,0 +1,8 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Pruebas con equaciones}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Ecuación Límite}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Ecuación Integral}{3}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Prueba con raíces}{3}{subsection.1.3}%
+\contentsline {section}{\numberline {2}Prueba con imágenes}{3}{section.2}%
+\contentsline {section}{\numberline {3}bibliography}{4}{section.3}%
+\contentsline {section}{\numberline {4}Listas}{4}{section.4}%
