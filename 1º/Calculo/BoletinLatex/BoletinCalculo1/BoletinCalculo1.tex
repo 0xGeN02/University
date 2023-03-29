@@ -3,6 +3,7 @@
 \usepackage{vmargin}
 \usepackage{amssymb}
 \usepackage{graphicx}
+\usepackage{amsfonts}
 
 \title{Boletin Calculo 1}
 \author{Manuel Mateo Delgado-Gambino López}
@@ -202,10 +203,12 @@ Sea $(x_n){n \in \mathbb{N}}$ una sucesión real que satisface la ecuación en d
 
 Para determinar la convergencia de la función, se puede utilizar el criterio de la sucesión: si una sucesión ($x_{n}$) converge a un límite $L$, entonces la función $f(x)$ es convergente en $L$ si y solo si $f(x_{n})$ converge a $f(L)$. En este caso, se puede concluir que $f(x)$ converge a $f(1)$.
 
-$x_{n+1} &= \sqrt{3}x_n \\
-x_2 &= \sqrt[3]{x_1} = \sqrt[3]{\frac{1}{8}} = \sqrt[3]{\frac{1}{2}} \\
-x_3 &= \sqrt[3]{x_2} = \sqrt[3]{\sqrt{\frac{1}{2}}} = \sqrt[3]{\frac{1}{\sqrt[3]{2}}} \\
-x_4 &= \sqrt[3]{x_3} = \sqrt[3]{\sqrt[{\frac{9}{8}}]} = \sqrt[3]{\frac{27}{8}}$
+\begin{equation}
+    x_{n+1} = \sqrt{3}x_n \\
+    x_2 = \sqrt[3]{x_1} = \sqrt[3]{\frac{1}{8}} = \sqrt[3]{\frac{1}{2}} \\
+    x_3 = \sqrt[3]{x_2} = \sqrt[3]{\sqrt{\frac{1}{2}}} = \sqrt[3]{\frac{1}{\sqrt[3]{2}}} \\
+    x_4 = \sqrt[3]{x_3} = \sqrt[3]{\sqrt{\frac{9}{8}}} = \sqrt[3]{\frac{27}{8}}
+\end{equation}
 
 La sucesión $(x_n)_{n \in \mathbb{N}}$ es una sucesión creciente con cota superior en $x = 1$. La función $f(x)$ converge a $f(1)$ según el criterio de la sucesión.
 b)Sea $(x_n){n \in \mathbb{N}}$ una sucesión real que satisface la ecuación en diferencias $x{n+1} = \sqrt{3}x_n$. Analicemos el comportamiento de la sucesión con término inicial $x_1 = 8$.
@@ -361,7 +364,7 @@ Conociendo los valores de los límites de cada punto, pasamos a hacer la clasifi
 
 \section{Ejercicio 3}
 
-\text{Analiza la convergencia o divergencia de la siguiente serie de n´umeros reales en función al valor del parámetro x ∈ R :
+\text{Analiza la convergencia o divergencia de la siguiente serie de números reales en función al valor del parámetro x $\in R$ :
 $\sum \infty$ [$x^n/n$]
 n=1}
 

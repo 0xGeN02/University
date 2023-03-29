@@ -1,0 +1,46 @@
+%Practicum LATEX UiE 2023
+
+%Tipo de documento
+
+\documentclass[12pt]{article}
+%\documentclass{book}
+%\documentclass{report}
+
+%Paquete de Margenes
+\usepackage[left= 2.5cm, right= 2.5cm, top= 2cm, bottom= 2cm]{geometry}
+
+%Paquete Lenguaje
+\usepackage[spanish]{babel}  %Es posible que se necesiten los pakages imputend y fontend
+
+%Paquete Imagenes
+\usepackage{graphicx}
+
+%Paquetes Matematicas
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+
+%Paquete Hipervínculos
+\usepackage{hyperref}
+
+%Manual de paquetes en CTAN
+
+%Documento
+
+\begin{document}
+
+B:$x'=2tx$
+$x'= 2tx => \frac{dx}{dt}= 2tx => \frac{dx}{x}= 2tdt => \frac{dx}{x} = \int 2tdt => \int ln(|x|) = t^{2}+k$
+$e^{ln(|x|)} = e^{t^{2}+k} => |x|= e^{k}e^{t^{2}}$
+$x=  \pm e^{k}e^{2}$ $e^{k}$ es una constante (C).
+Solucion General: $x= Ce^{t^{2}}$
+
+
+C:$x'=t^{2}x^{2}$
+
+$\frac{dx}{dt}=t^{2}x^{2} => $ si x $\neq$ 0 $\frac{dx}{x^{2}}= t^{2}dt => \int \frac{dx}{x^{2}} = \int t^{2}dt$
+$\frac{-1}{x} = \frac{t^{3}}{3} +k => \frac{-1}{x} = \frac{t^{3+3k}}{3} => x = \frac{-3}{t^{3}+3k}$
+$3k = $ constante c 
+Solucion General: $x(t) = \frac{-3}{t^{3}+c}, c \in \mathbb{R}$
+Solucion Singular: $x(t) = 0$
+\end{document}
+
+
