@@ -1,27 +1,20 @@
 //CABECERA Asignacion 1
 //Grupo 6
 
-#include <stdio.h>
-#include <stdlib.h>
-
 //Definicion de funciones
-char cuadrado();
+void cuadrado();
 
-char TrianguloIz();
+void trianguloIzquierdo();
 
-char TrianguloDer();
+void trianguloDerecho();
 
 char flecha();
 
-char Rombo();
+void rombo();
 
 char Factorial();
 
-long long print_factorial(int n);
-
-long long combinatoria(int n, int x);
-
-long long Array();
+void Array();
 
 float suma_array(float arr[], int n);
 
@@ -29,14 +22,10 @@ float ArrayFiltros();
 
 float suma_array(float arr[], int n);
 
-int Fibo();
+int fibonacci();
 
-long factorial(int);
+void Pascal();
 
-int Pascal();
-
-long factorial(int n);
-
-void Hanoi(int discos, char origen, char destino, char auxiliar);
+void Hanoi(int, char, char, char);
 
 int Print_Hanoi();
