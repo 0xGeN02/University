@@ -22,7 +22,6 @@
 #include<iomanip>
 #include<unordered_map>
 //BIBLIOTECA DE USO EN PROGRAMA PRINCIPAL
-#include <conio.h>
 
 /*************************************
  * DEFINICIÓN DE LA CLASE  Arbol_B   *
@@ -65,7 +64,7 @@ public:
 void Pausa() 
 {
  cout << "Presione una tecla para continuar...";
- _getch(); 
+ cin.get();
  cout << endl; 
 }
 // PROGRAMA PRINCIPAL DE PRUEBA DE LOS MÉTODOS

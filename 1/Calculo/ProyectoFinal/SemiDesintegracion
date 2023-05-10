@@ -1,0 +1,20 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Parámetros
+N0 = 1000     # Cantidad inicial de la sustancia
+lambda_ = 0.01  # Constante de desintegración
+t = np.linspace(0, 700, 100) # Tiempo
+
+# Ecuación de desintegración radiactiva
+N = N0 * np.exp(-lambda_ * t)
+
+# Crear la gráfica
+plt.figure(figsize=(10,6))
+plt.plot(t, N, label='Desintegración radiactiva')
+plt.title('Desintegración radiactiva')
+plt.xlabel('Tiempo')
+plt.ylabel('Cantidad restante de la sustancia')
+plt.legend()
+plt.grid(True)
+plt.show()

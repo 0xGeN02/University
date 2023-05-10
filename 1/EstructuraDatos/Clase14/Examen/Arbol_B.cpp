@@ -1,96 +1,92 @@
-/****************************************
-* Asignatura: Estructura de Datos       *
-* Sesión 12 Clase Arbol_B               *
-* Fichero S12_E05.cpp                   *
-* Utiliza Clase Nodo_AB                 *
-* Métodos Básicos:                      *
-*  Constructor y Desctructor            *
-*  Mostrar Árbol, Eliminar Nodo         * 
-* Métodos PROPIEDADES DEL ÁRBOL         *
-*  GradO, Peso, Altura,                 *
-*  Factor de Equilibrio Lleno, Completo *
-* Métodos RECORRIDO DEL ÁRBOL           *
-*  Nivel, Preorden, Enorden, Postorden  *
-* Programa exclusivo para uso académico *
-* Adaptado por: Eladio Dapena Gonzalez  *
-* Fecha: 26/03/2023                     *
-*****************************************/
-// BIBLIOTECAS DE LA CLASE Arbol_B
-#include "Nodo_AB.h"
-#include <vector>
-#include <queue>
-#include<iomanip>
+/************************************************
+* Asignatura: Estructura de Datos               *
+* Sesión 12 Clase Arbol_B                       *
+* Fichero de Declaraciones de la clase Arbol_B  *
+* Utiliza Clase Nodo_AB                         *
+* Adaptado por: Eladio Dapena Gonzalez          *
+* Fecha: 26/03/2023                             *
+*************************************************/
+//Bibliotecas
+#include "Arbol_B.h"
 
-/*************************************
- * DEFINICIÓN DE LA CLASE  Arbol_B   *
- *************************************/
-class Arbol_B 
-{
-public:
-// ATRIBUTOS DE UN AB
-  Nodo_AB * Raiz;
-// CONSTRUCTOR DE UN AB
-    Arbol_B();
-    Arbol_B(Tipo);
-// DESTRUCTOR DE UN AB
-   ~Arbol_B();
-// MÉTODOS BÁSICOS DE UN AB
- void       Agrega_Nodo(Tipo);
- Nodo_AB   *Elimina_Nodo(Nodo_AB * , Tipo );
- Nodo_AB   *Nodo_Mas_Izquierdo(Nodo_AB *);  // Rutina auxiliar de Elimina_Nodo
- void       Muestra_Arbol(Nodo_AB *, int ); 
- void       DestruirArbol(Nodo_AB*);
- // MÉTODOS PROPIEDADES DE UN AB
- void       Propiedades_AB(Arbol_B *);
- int        Grado(Nodo_AB * )  const;
- int        Peso(Nodo_AB * )   const;
- int        Altura(Nodo_AB * ) const;
- int        Factor_Eq(Nodo_AB * ) const;
- bool       EsCompleto(Nodo_AB* ) const; 
- bool       EsLleno(Nodo_AB* ) const;   
- // MÉTODOS RECORRIDO DE UN AB
- void       R_Nivel();
- void       R_Preorden(Nodo_AB * );
- void       R_Inorden(Nodo_AB * );
- void       R_Postorden(Nodo_AB * );
-};
+/**********************************************
+ *        MÉTODOS DE LA CLASE Nodo_AB         *
+ **********************************************/
+//    Constructores de la clase Nodo_AB
 
-void Pausa() 
-{
- cout << "Presione una tecla para continuar...";
- cin.get();
- cout << endl; 
-}
-// PROGRAMA PRINCIPAL DE PRUEBA DE LOS MÉTODOS
-int main() 
-{
- int i;
- Arbol_B* AB=new Arbol_B();
- vector<int> Nodos = {50,40,60,35,45,55,65,30,38,42,48,70,62,52,58,61,43};
- for (i = 0; i < Nodos.size(); ++i) 
+Nodo_AB::Nodo_AB(Tipo x) 
  {
-    AB->Agrega_Nodo(Nodos[i]);
+  Valor = x;
+  H_Izq = nullptr;
+  H_Der = nullptr;
  }
- cout<<"***   ARBOL BINARIO   ***"<<endl;
- cout << "\t REPRESENTACION " << endl;
- AB->Muestra_Arbol(AB->Raiz, 0);
- Pausa();
- cout<<" RECORRIDOS"<<endl;
- cout << "\tNivel     : ";
- AB->R_Nivel();
- cout << endl;
- cout <<"\tPreorden  : ";
- AB->R_Preorden( AB->Raiz);
- cout << endl;
- cout << "\tInorden   : ";
- AB->R_Inorden( AB->Raiz);
- cout << endl;
- cout << "\tPostorden : ";
- AB->R_Postorden( AB->Raiz);
- cout << endl;
- Pausa();  
- delete AB;
+
+ // Agregar Hijo izquierdo
+Nodo_AB* Nodo_AB::ADD_IZQ(Tipo x) 
+ {
+  delete H_Izq;
+  H_Izq = new Nodo_AB(x);
+  return H_Izq;
+ }
+// Agregar Hijo Derecho
+Nodo_AB* Nodo_AB::ADD_DER(Tipo x) 
+ {
+  delete H_Der;
+  H_Der = new Nodo_AB(x);
+  return H_Der;
+ }
+ void Nodo_AB::Muestra_Nodo() const 
+{
+  cout<<"[";
+  if (H_Izq != nullptr) 
+    cout<<H_Izq->Valor;
+  cout<<"]"<<" <- ["<<Valor<<"] -> [";
+  if (H_Der != nullptr) 
+    cout<<H_Der->Valor;
+  cout<<"]"<<endl;
+
 } 
+// Pregunta si tienen hijo izquierdo
+ bool Nodo_AB::Tiene_H_Izq(Nodo_AB* x) const 
+ {
+  bool a=true;
+  if (x->H_Izq == nullptr) 
+    a=false;
+ return a;
+ }
+// Pregunta si tienen hijo derecho
+bool Nodo_AB::Tiene_H_Der(Nodo_AB* x) const 
+ {
+  bool a=true;
+  if (x->H_Der == nullptr) 
+    a=false;
+  return a;
+ }
+// Pregunta si no tienen hijos (Hoja)
+ bool Nodo_AB::Es_Hoja(Nodo_AB* x) const 
+ {
+  bool a=true;
+  if ((x->H_Der != nullptr)||(x->H_Izq != nullptr) )
+    a=false;
+  return a;
+ }
+// Muestra un nodos y sus hijos en forma de árbol
+void Nodo_AB::Muestra_Nodos(int Nivel = 0) const 
+{
+ if (H_Der != nullptr) 
+    H_Der->Muestra_Nodos(Nivel + 4);
+ cout << string(Nivel, ' ') << Valor << endl;
+ if (H_Izq != nullptr) 
+    H_Izq->Muestra_Nodos(Nivel + 4);
+} 
+// Destructor de la clase
+Nodo_AB::~Nodo_AB()
+ {
+  delete H_Izq;
+  delete H_Der;
+ }
+
+
 
 /******************************************
  *        MÉTODOS BÁSICOS ÁRBOL BINARIO   *
@@ -111,7 +107,11 @@ int main()
 /**   DESTRUCTOR  DE UN ÁRBOL BINARIO **/
 Arbol_B::~Arbol_B()
 {
-   DestruirArbol(Raiz);
+  if (Raiz!=nullptr)
+  {
+   DestruirArbol(Raiz->H_Izq);
+   DestruirArbol(Raiz->H_Der);
+  }
 }
 
 /**   AGREGA NODO A UN ÁRBOL BINARIO  **/
@@ -221,14 +221,23 @@ void Arbol_B::Muestra_Arbol(Nodo_AB *nodo, int nivel = 0)
 }
 
 /**   DESTRUIR UN ÁRBOL BINARIO **/
-void Arbol_B::DestruirArbol(Nodo_AB * raiz)
+void Arbol_B::DestruirArbol(Nodo_AB * r)
 {
-    if (raiz != nullptr) 
+    if (r->H_Izq != nullptr) 
     {
-        DestruirArbol(raiz->H_Izq);
-        DestruirArbol(raiz->H_Der);
+      DestruirArbol(r->H_Izq);
     }
-    delete raiz;
+    else
+    {
+     if ((r->H_Der != nullptr)) 
+     {
+      DestruirArbol(r->H_Der);
+     }
+     else
+     {
+      delete r;
+     }
+    }
 }
 
 /************************************************
@@ -238,21 +247,20 @@ void Arbol_B::DestruirArbol(Nodo_AB * raiz)
 //**   MUESTRA PROPIESDADES DEL ÁRBOL BINARIO  **/
 void Arbol_B::Propiedades_AB(Arbol_B * R)
 {
- cout<<" PROPIEDADES"<<endl;
- cout<<"\tGrado        = "<<R->Grado(R->Raiz); 
- cout<<endl;
- cout<<"\tPeso         = "<<R->Peso(R->Raiz); 
- cout<<endl;
- cout<<"\tAltura       = "<<R->Altura(R->Raiz); 
- cout<<endl;
- cout<<"\tFactor Eq    = "<<R->Factor_Eq(R->Raiz); 
- cout<<endl;
- cout<<"\tEs Completo  = ";
+ cout<<"----PROPIEDADES"<<endl;
+ cout<<"\tRaiz               = "<<R->Raiz->Valor<<endl;
+ cout<<"\tGrado              = "<<R->Grado(R->Raiz)<<endl; 
+ cout<<"\tPeso               = "<<R->Peso(R->Raiz)<<endl; 
+ cout<<"\tAltura Arbol       = "<<(R->Altura(R->Raiz))<<endl; 
+ cout<<"\tAltura Rama Izq    = "<<(R->Altura(R->Raiz->H_Izq)+1)<<endl; 
+ cout<<"\tAltura Rama Der    = "<<(R->Altura(R->Raiz->H_Der)+1)<<endl; 
+ cout<<"\tFactor Equilibrio  = "<<R->Factor_Eq(R->Raiz)<<endl; 
+ cout<<"\tEs Completo        = ";
  if (R->EsCompleto(R->Raiz))
    cout<<"SI"<<endl;
   else
    cout<<"NO"<<endl;
- cout<<"\tEs Lleno     = ";
+ cout<<"\tEs Lleno           = ";
  if (R->EsLleno(R->Raiz))
    cout<<"SI"<<endl;
   else
@@ -308,7 +316,7 @@ int Arbol_B::Altura(Nodo_AB* raiz) const
  }
  int altura_izq = Altura(raiz->H_Izq);
  int altura_der = Altura(raiz->H_Der);
- return 1 + max(altura_izq, altura_der);
+ return 1+max(altura_izq, altura_der);
 }
 /**   FACTOR DE EQUILIBRIO DE UN ÁRBOL BINARIO   **/ 
 int Arbol_B::Factor_Eq(Nodo_AB* raiz) const 
@@ -437,4 +445,117 @@ void Arbol_B::R_Postorden(Nodo_AB * nodo)
     R_Postorden(nodo->H_Der);
     cout << nodo->Valor << " ";
  }
+}
+
+/**   CAMINO ENTRE DOS NODOS DE UN ÁRBOL BINARIO   **/
+void Arbol_B::Muestra_Camino(Tipo valor1, Tipo valor2){
+ Nodo_AB* nodo1 = Busca_Nodo(valor1);
+ Nodo_AB* nodo2 = Busca_Nodo(valor2);
+ if (nodo1 == nullptr || nodo2 == nullptr) 
+ {
+  cout << "NODO NULO" << endl;
+        return;
+ }
+ if (nodo1 == nodo2) 
+ {
+  cout <<nodo1->Valor << endl;
+  return;
+ }
+ unordered_map<Nodo_AB*, Nodo_AB*> padres;
+ queue<Nodo_AB*> cola;
+ cola.push(Raiz);
+ while (!cola.empty()) 
+ {
+  Nodo_AB* actual = cola.front();
+  cola.pop();
+  if (actual->H_Izq != nullptr) 
+  {
+    padres[actual->H_Izq] = actual;
+    cola.push(actual->H_Izq);
+  }
+  if (actual->H_Der != nullptr) 
+  {
+    padres[actual->H_Der] = actual;
+    cola.push(actual->H_Der);
+  }
+  if (actual == nodo2) 
+  {
+    break;
+  }
+ }
+ vector<Tipo> camino;
+ Nodo_AB* actual = nodo2;
+ while (actual != nodo1) 
+ {
+  camino.push_back(actual->Valor);
+  actual = padres[actual];
+  if (actual == nullptr) 
+  {
+    cout << "NO HAY CAMINO" << endl;
+            return;
+  }
+ }
+ camino.push_back(nodo1->Valor);
+ //cout << "\tCAMINO : ";
+ for (int i = camino.size() - 1; i >= 0; i--) 
+ {
+  if (i>=1)
+   cout << camino[i] << "->";
+  else
+   cout << camino[i] << " ";
+ }
+    cout << endl;
+}
+
+Nodo_AB* Arbol_B::Busca_Nodo(Tipo valor) 
+{
+ Nodo_AB* actual = Raiz;
+ while (actual != nullptr) 
+ {
+  if (valor == actual->Valor) 
+  {
+    return actual;
+  } else 
+  if (valor < actual->Valor) 
+  {
+    actual = actual->H_Izq;
+  } else 
+  {
+    actual = actual->H_Der;
+  }
+ }
+ return nullptr;
+} 
+
+// OTRAS RUTINAS
+void Pausa() 
+{
+ cout << "Presione una tecla para continuar...";
+ cin.get();
+ cout << endl; 
+}
+
+//RUTINA DE SOPORTE PARA GENERAR NÚMEROS ENTEROS
+void NUM_ALEA_P4(vector<int>& Vec, int N, int LI, int LS, unsigned semilla )
+{
+ Vec.clear();
+ Vec.push_back(50); Vec.push_back(25); Vec.push_back(75);
+ // Verifica si es posible generar N enteros distintos en el rango [LI, LS]
+ if (N > LS - LI + 1) 
+ {
+  cerr << "No es posible generar " << N << " enteros distintos en el rango [" << LI << "," << LS << "].\n";
+  return;
+ }
+// Genera los números aleatorios no repetidos
+ mt19937 generator(semilla);
+ uniform_int_distribution<int> distribution(LI, LS);
+ while (Vec.size() < (unsigned)N) 
+ {
+  int numero = distribution(generator);
+  if (find(Vec.begin(), Vec.end(), numero) == Vec.end()) 
+  {
+   Vec.push_back(numero);
+  }
+ }
+  Vec.push_back(1); Vec.push_back(99); 
 }
