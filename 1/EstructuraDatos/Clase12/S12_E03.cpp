@@ -16,8 +16,7 @@
 #include <queue>
 #include <string>
 #include <math.h>
-//BIBLIOTECA DE USO EN PROGRAMA PRINCIPAL
-#include <conio.h>
+
 /*************************************
  * DEFINICIÓN DE LA CLASE  Arbol_B   *
  *************************************/
@@ -39,10 +38,11 @@ public:
  void       DestruirArbol(Nodo_AB*);
 };
 //  RUTINA DE USO POR EL PROGRAMA PRINCIPAL
+// RREMPLAZAR POR OTRA PARA macOS con Intel y/o M1
 void Pausa() 
 {
  cout << "Presione una tecla para continuar...";
- _getch(); 
+ cin.get();
  cout << endl; 
 }
 // PROGRAMA PRINCIPAL DE PRUEBA DE LOS MÉTODOS

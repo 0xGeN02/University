@@ -1,18 +1,52 @@
 /****************************************
 * Asignatura: Estructura de Datos       *
-* Sesión 12 Clase Arbol_B               *
+* Clase Arbol_B                         *
 * Fichero Cabecera de la clase Arbol_B  *
-* Utiliza Clase Nodo_AB                 *
+* Define  Clase Nodo_AB                 *
 * Adaptado por: Eladio Dapena Gonzalez  *
 * Fecha: 26/03/2023                     *
 *****************************************/
-// BIBLIOTECAS DE LA CLASE Arbol_B
-#include "Nodo_AB.h"
-#include <iostream>
-#include <vector>
-#include <queue>
-#include <iomanip>
-#include <unordered_map>
+#include  <iostream>
+#include  <vector>
+#include  <queue>
+#include  <iomanip>
+#include  <unordered_map>
+#include  <algorithm>
+#include  <random>
+using namespace std;
+/*************************************
+ * DEFINICIÓN DE LA CLASE  Nodo_AB   *
+ *************************************/
+// Definir el tipo de dato del Nodo
+typedef unsigned Tipo;
+class Nodo_AB 
+{
+public:
+// Atributos
+    Tipo         Valor;
+    Nodo_AB*     H_Izq;
+    Nodo_AB*     H_Der;
+
+//    Constructores de la clase Nodo_AB
+ Nodo_AB( Tipo );
+ Nodo_AB( Tipo, Nodo_AB*, Nodo_AB* );
+ // Muestra nodo
+ void Muestra_Nodo() const;
+ // Agregar Hijo izquierdo
+ Nodo_AB* ADD_IZQ( Tipo );
+// Agregar Hijo Derecho
+ Nodo_AB* ADD_DER( Tipo );
+// Pregunta si tienen hijo izquierdo
+ bool Tiene_H_Izq(Nodo_AB * ) const;
+// Pregunta si tienen hijo derecho
+ bool Tiene_H_Der(Nodo_AB * ) const;
+// Pregunta si no tienen hijos (Hoja)
+ bool Es_Hoja(Nodo_AB * ) const;
+// Muestra un nodos y sus hijos en forma de árbol
+ void Muestra_Nodos(int) const;
+// Destructor de la clase
+~Nodo_AB(); 
+};
 
 /*************************************
  * DEFINICIÓN DE LA CLASE  Arbol_B   *
@@ -50,3 +84,7 @@ public:
  void       Muestra_Camino(Tipo , Tipo ); 
  Nodo_AB*   Busca_Nodo(Tipo );
 };
+
+// RUTINA DE SOPORTE PARA GENERAR NÚMEROS ALEATORIOS
+void Pausa();
+void NUM_ALEA_P4(vector<int>& , int , int , int , unsigned  );
