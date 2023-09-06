@@ -1,38 +1,60 @@
-//RUTINA DE SOPORTE PARA GENERAR NÚMEROS ENTEROS
-#include "Asig.05.h"
+#include "Asig05.h"
 
-Arbol_B::Arbol_B() : raiz(nullptr) {}
 
-Arbol_B::~Arbol_B(){
-    // TODO: Implementar destructor
+// Constructor
+BinarySearchTree::BinarySearchTree() : root(nullptr) {}
+
+// Destructor
+BinarySearchTree::~BinarySearchTree() { deleteTree(root); }
+
+// Insertar un nodo
+Node* BinarySearchTree::insert(Node* node, int data) {
+    if (node == nullptr) {
+        node = new Node;
+        node->data = data;
+        node->left = node->right = nullptr;
+    }
+    else if (data < node->data) {
+        node->left = insert(node->left, data);
+    }
+    else {
+        node->right = insert(node->right, data);
+    }
+    return node;
 }
-void Arbol_B::insertar(int valor){
 
+void BinarySearchTree::insert(int data) {
+    root = insert(root, data);
 }
 
-bool Arbol_B::buscar(int valor) const{
-
+// Buscar un nodo
+Node* BinarySearchTree::search(Node* node, int data) {
+    if (node == nullptr || node->data == data)
+        return node;
+    if (data < node->data)
+        return search(node->left, data);
+    else
+        return search(node->right, data);
 }
 
-void NUM_ALEA_P4(vector<int>& Vec, int N, int LI, int LS, unsigned semilla ){
- Vec.clear();
- Vec.push_back(50); Vec.push_back(25); Vec.push_back(75);
- // Verifica si es posible generar N enteros distintos en el rango [LI, LS]
- if (N > LS - LI + 1) 
- {
-  cerr << "No es posible generar " << N << " enteros distintos en el rango [" << LI << "," << LS << "].\n";
-  return;
- }
-// Genera los números aleatorios no repetidos
- mt19937 generator(semilla);
- uniform_int_distribution<int> distribution(LI, LS);
- while (Vec.size() < (unsigned)N) 
- {
-  int numero = distribution(generator);
-  if (find(Vec.begin(), Vec.end(), numero) == Vec.end()) 
-  {
-   Vec.push_back(numero);
-  }
- }
-  Vec.push_back(1); Vec.push_back(99); 
+Node* BinarySearchTree::search(int data) {
+    return search(root, data);
 }
+
+// Eliminar el árbol
+void BinarySearchTree::deleteTree(Node* node) {
+    if (node == nullptr) return;
+    deleteTree(node->left);
+    deleteTree(node->right);
+    delete node;
+}
+
+// Linear search for vector and list
+bool linear_search(const vector<int>& vec, int data) {
+    return find(vec.begin(), vec.end(), data) != vec.end();
+}
+
+bool linear_search(const list<int>& lst, int data) {
+    return find(lst.begin(), lst.end(), data) != lst.end();
+}
+
