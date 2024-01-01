@@ -1,0 +1,35 @@
+CREATE DATABASE mi_base_de_datos;
+
+-- Tabla de clientes
+CREATE TABLE clientes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    DNI VARCHAR(20) NOT NULL,
+    Nombre VARCHAR(50) NOT NULL,
+    Apellidos VARCHAR(50) NOT NULL,
+    Telefono VARCHAR(15),
+    Fecha_Nacimiento DATE
+);
+
+-- Tabla de pedidos
+CREATE TABLE pedidos (
+    numero INT AUTO_INCREMENT PRIMARY KEY,
+    fecha DATE NOT NULL,
+    precio DECIMAL(10, 2) NOT NULL,
+    cliente_id INT,
+    FOREIGN KEY (cliente_id) REFERENCES clientes(id)
+);
+
+-- Inserta datos en la tabla de clientes
+INSERT INTO clientes (DNI, Nombre, Apellidos, Telefono, Fecha_Nacimiento)
+VALUES
+    ('123456789A', 'Juan', 'Pérez', '555-123-4567', '1990-01-15'),
+    ('987654321B', 'María', 'Gómez', '555-987-6543', '1985-07-20'),
+    ('543216789C', 'Luis', 'Martínez', '555-543-2167', '1995-03-10');
+
+-- Inserta datos en la tabla de pedidos
+INSERT INTO pedidos (fecha, precio, cliente_id)
+VALUES
+    ('2023-10-05', 100.00, 1),  -- El pedido 1 pertenece al cliente 1
+    ('2023-10-08', 75.50, 2),   -- El pedido 2 pertenece al cliente 2
+    ('2023-10-10', 50.25, 3),   -- El pedido 3 pertenece al cliente 3
+    ('2023-10-12', 30.75, 1);  -- El pedido 4 pertenece al cliente 1
