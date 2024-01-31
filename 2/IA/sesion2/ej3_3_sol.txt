@@ -1,0 +1,57 @@
+Solving...
+c Answer: 1
+v -1 2 -3 -4 5 0
+c Answer: 2
+v -1 -2 -3 -4 5 0
+c Answer: 3
+v -1 2 3 -4 5 0
+c Answer: 4
+v -1 -2 3 -4 5 0
+c Answer: 5
+v -1 2 -3 4 5 0
+c Answer: 6
+v -1 2 3 4 5 0
+c Answer: 7
+v -1 -2 -3 4 5 0
+c Answer: 8
+v -1 -2 3 4 5 0
+c Answer: 9
+v -1 2 -3 -4 -5 0
+c Answer: 10
+v -1 -2 -3 -4 -5 0
+c Answer: 11
+v -1 2 -3 4 -5 0
+c Answer: 12
+v -1 -2 -3 4 -5 0
+c Answer: 13
+v -1 2 3 -4 -5 0
+c Answer: 14
+v -1 2 3 4 -5 0
+c Answer: 15
+v -1 -2 3 -4 -5 0
+c Answer: 16
+v -1 -2 3 4 -5 0
+c Answer: 17
+v 1 2 -3 -4 5 0
+c Answer: 18
+v 1 -2 -3 -4 5 0
+c Answer: 19
+v 1 2 -3 4 5 0
+c Answer: 20
+v 1 -2 -3 4 5 0
+c Answer: 21
+v 1 2 -3 -4 -5 0
+c Answer: 22
+v 1 -2 -3 -4 -5 0
+c Answer: 23
+v 1 2 3 -4 5 0
+c Answer: 24
+v 1 2 3 4 5 0
+c Answer: 25
+v 1 2 3 -4 -5 0
+s SATISFIABLE
+c
+c Models         : 25
+c Calls          : 1
+c Time           : 0.047s (Solving: 0.05s 1st Model: 0.00s Unsat: 0.00s)
+c CPU Time       : 0.000s

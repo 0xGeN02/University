@@ -1,0 +1,149 @@
+c Solving...
+c Answer: 1
+v -1 -2 3 -4 0
+c Answer: 2
+v -1 2 3 -4 0
+c Answer: 3
+v -1 -2 -3 -4 0
+c Answer: 4
+v -1 2 -3 -4 0
+c Answer: 5
+v -1 -2 3 4 0
+c Answer: 6
+v -1 2 3 4 0
+c Answer: 7
+v 1 -2 3 -4 0
+c Answer: 8
+v 1 -2 -3 -4 0
+c Answer: 9
+v 1 -2 3 4 0
+s SATISFIABLE
+c
+c Models         : 9
+c Calls          : 1
+c Time           : 0.000s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+c CPU Time       : 0.000s
+(clingo-env) PS C:\Users\alexr\mateo\University\2\IA\sesion2> clasp ej3_4.cnf 0
+c clasp version 3.3.9
+c Reading from ej3_4.cnf
+c Solving...
+c Answer: 1
+v -1 -2 -3 4 5 -6 0
+c Answer: 2
+v -1 2 -3 4 5 -6 0
+c Answer: 3
+v -1 -2 -3 4 -5 -6 0
+c Answer: 4
+v -1 2 -3 4 -5 -6 0
+c Answer: 5
+v -1 -2 -3 -4 5 -6 0
+c Answer: 6
+v -1 -2 -3 -4 -5 -6 0
+c Answer: 7
+v -1 2 -3 -4 5 -6 0
+c Answer: 8
+v -1 2 -3 -4 -5 -6 0
+c Answer: 9
+v -1 -2 3 4 5 -6 0
+c Answer: 10
+v -1 2 3 4 5 -6 0
+c Answer: 11
+v -1 -2 3 4 -5 -6 0
+c Answer: 12
+v -1 2 3 4 -5 -6 0
+c Answer: 13
+v -1 -2 3 -4 5 -6 0
+c Answer: 14
+v -1 -2 3 -4 -5 -6 0
+c Answer: 15
+v -1 2 3 -4 5 -6 0
+c Answer: 16
+v -1 2 3 -4 -5 -6 0
+c Answer: 17
+v -1 -2 -3 4 5 6 0
+c Answer: 18
+v -1 -2 -3 -4 5 6 0
+c Answer: 19
+v -1 -2 -3 4 -5 6 0
+c Answer: 20
+v -1 -2 -3 -4 -5 6 0
+c Answer: 21
+v -1 2 -3 4 5 6 0
+c Answer: 22
+v -1 2 -3 4 -5 6 0
+c Answer: 23
+v -1 2 -3 -4 5 6 0
+c Answer: 24
+v -1 2 -3 -4 -5 6 0
+c Answer: 25
+v -1 -2 3 4 5 6 0
+c Answer: 26
+v -1 -2 3 -4 5 6 0
+c Answer: 27
+v -1 -2 3 4 -5 6 0
+c Answer: 28
+v -1 -2 3 -4 -5 6 0
+c Answer: 29
+v -1 2 3 4 5 6 0
+c Answer: 30
+v -1 2 3 4 -5 6 0
+c Answer: 31
+v -1 2 3 -4 5 6 0
+c Answer: 32
+v -1 2 3 -4 -5 6 0
+c Answer: 33
+v 1 -2 -3 4 5 -6 0
+c Answer: 34
+v 1 2 -3 4 5 -6 0
+c Answer: 35
+v 1 -2 -3 4 -5 -6 0
+c Answer: 36
+v 1 2 -3 4 -5 -6 0
+c Answer: 37
+v 1 -2 -3 -4 5 -6 0
+c Answer: 38
+v 1 -2 -3 -4 -5 -6 0
+c Answer: 39
+v 1 2 -3 -4 5 -6 0
+c Answer: 40
+v 1 2 -3 -4 -5 -6 0
+c Answer: 41
+v 1 -2 3 4 5 -6 0
+c Answer: 42
+v 1 2 3 4 5 -6 0
+c Answer: 43
+v 1 -2 3 4 -5 -6 0
+c Answer: 44
+v 1 2 3 4 -5 -6 0
+c Answer: 45
+v 1 -2 3 -4 5 -6 0
+c Answer: 46
+v 1 -2 3 -4 -5 -6 0
+c Answer: 47
+v 1 -2 -3 4 5 6 0
+c Answer: 48
+v 1 -2 -3 4 -5 6 0
+c Answer: 49
+v 1 2 -3 4 5 6 0
+c Answer: 50
+v 1 -2 -3 -4 5 6 0
+c Answer: 51
+v 1 2 -3 -4 5 6 0
+c Answer: 52
+v 1 -2 -3 -4 -5 6 0
+c Answer: 53
+v 1 -2 3 4 5 6 0
+c Answer: 54
+v 1 -2 3 4 -5 6 0
+c Answer: 55
+v 1 2 3 4 5 6 0
+c Answer: 56
+v 1 -2 3 -4 5 6 0
+c Answer: 57
+v 1 -2 3 -4 -5 6 0
+s SATISFIABLE
+c
+c Models         : 57
+c Calls          : 1
+c Time           : 0.094s (Solving: 0.09s 1st Model: 0.00s Unsat: 0.00s)
+c CPU Time       : 0.000s
