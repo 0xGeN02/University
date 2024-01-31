@@ -1,0 +1,38 @@
+Reading from taxi.lp
+Solving...
+Answer: 1
+viaje(taxi1,daniel)
+Answer: 2
+viaje(taxi1,carlos)
+Answer: 3
+viaje(taxi1,carlos) viaje(taxi1,daniel)
+Answer: 4
+viaje(taxi1,bea)
+Answer: 5
+viaje(taxi1,bea) viaje(taxi1,daniel)
+Answer: 6
+viaje(taxi1,bea) viaje(taxi1,carlos)
+Answer: 7
+viaje(taxi1,bea) viaje(taxi1,carlos) viaje(taxi1,daniel)
+Answer: 8
+viaje(taxi1,ana)
+Answer: 9
+viaje(taxi1,ana) viaje(taxi1,carlos)
+Answer: 10
+viaje(taxi1,ana) viaje(taxi1,daniel)
+Answer: 11
+viaje(taxi1,ana) viaje(taxi1,carlos) viaje(taxi1,daniel)
+Answer: 12
+viaje(taxi1,ana) viaje(taxi1,bea)
+Answer: 13
+viaje(taxi1,ana) viaje(taxi1,bea) viaje(taxi1,daniel)
+Answer: 14
+viaje(taxi1,ana) viaje(taxi1,bea) viaje(taxi1,carlos)
+Answer: 15
+viaje(taxi1,ana) viaje(taxi1,bea) viaje(taxi1,carlos) viaje(taxi1,daniel)
+SATISFIABLE
+
+Models       : 15
+Calls        : 1
+Time         : 0.041s (Solving: 0.01s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.000s

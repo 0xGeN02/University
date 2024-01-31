@@ -1,0 +1,11 @@
+c clasp version 3.3.9
+c Reading from ...ateo\University\2\IA\sesion2\ej3_1.cnf
+c Solving...
+c Answer: 1
+v -1 2 3 4 0
+s SATISFIABLE
+c
+c Models         : 1+
+c Calls          : 1
+c Time           : 0.031s (Solving: 0.02s 1st Model: 0.02s Unsat: 0.00s)
+c CPU Time       : 0.016s
