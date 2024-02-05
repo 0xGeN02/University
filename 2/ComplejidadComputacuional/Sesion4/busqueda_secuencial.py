@@ -1,3 +1,4 @@
+import random
 t = 0
 def busqueda_secuencial(vector, elemento):
     global t
@@ -7,7 +8,12 @@ def busqueda_secuencial(vector, elemento):
             return i
     return -1
 
-vector = [1, 2, 3, 4, 5]
-elemento = 3
+elemento = 1000
+vector = list(range(10000))
+
+random.shuffle(vector)
+vector.reverse()
+
+print(vector)
 print(busqueda_secuencial(vector, elemento))
 print("T(N): ", t)

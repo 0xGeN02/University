@@ -9,7 +9,9 @@ def ordenacion_burbuja(vector):
                 vector[j], vector[j + 1] = vector[j + 1], vector[j]
     return vector
 
-vector = [5, 4, 3, 2, 1]
+vector = list(range(1000))
+vector.reverse()
+elemento = 0
 
 print(ordenacion_burbuja(vector))
 print ("T(N): ", t)
