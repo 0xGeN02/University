@@ -1,0 +1,5 @@
+c (-q\/r\/-p)
+c p=Hoy es un día soleado, q=lloverá, r=nos podemos ir de excursión
+c
+p cnf 3 1
+-2 3 -1 0
