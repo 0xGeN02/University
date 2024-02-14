@@ -1,0 +1,7 @@
+c Codifique al formato DIMACS la fórmula en forma normal conjuntiva (FNC) del enunciado anterior. Compruebe las soluciones posibles con Clasp.
+c FNC: u /\ r
+c emplear energia solar: u
+c emplear energia termica: r
+p cnf 2 2
+1 0
+2 0
