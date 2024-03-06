@@ -1,0 +1,1 @@
+Si tenemos 2 estados iniciales o finales tenomos que eliminarlos como finales o iniciales y generar 1 donde ese  es el inicial o final y se le generan transiciones lambda
