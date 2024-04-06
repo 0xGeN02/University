@@ -22,7 +22,7 @@ while (norm(fp(x0)) > 1.e-6)
     ss = 0.01;
     x1 = x0 + ss*S;
 
-    while (ss > 1.e-12)
+    while (ss > 0.15)
         while (f(x0) - f(x1)) > 0
             x0 = x1;
             x1 = x0 + ss*S;
