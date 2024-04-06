@@ -12,8 +12,8 @@ w = zeros(5, 1); % Valores iniciales (puedes elegir otros valores)
 
 % Hiperparámetros
 learning_rate = 0.01;
-max_iterations = 1000;
-tolerance = 1e-6;
+max_iterations = 1;
+tolerance = 0.15;
 
 % Bucle de descenso de gradiente
 for iter = 1:max_iterations
