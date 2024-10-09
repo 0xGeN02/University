@@ -30,7 +30,17 @@ Una vez que el entorno virtual esté activado, instala las dependencias necesari
 ```sh
 pip install -r requirements.txt
 ```
+### 3. Instalar irobot sdk
 
+```sh
+git submodule init
+git submodule update
+```
+
+```sh
+cd irobot-edu-python-sdk
+pip3 install .
+```
 ## Uso del proyecto
 
 ### 1. Activar venv
