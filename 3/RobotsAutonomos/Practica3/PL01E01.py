@@ -1,156 +1,182 @@
+"""
+Práctica 3: Robots Autónomos
+"""
+
+import math
 from irobot_edu_sdk.backend.bluetooth import Bluetooth
 from irobot_edu_sdk.robots import event, Create3
 from irobot_edu_sdk.music import Note
 
 robot = Create3(Bluetooth())
 
-# Lista para almacenar las posiciones visitadas
-lugares_visitados = []
+# Diccionario para variables globales
+global_vars = {
+    "speed": 5,
+    "th": 150,
+    "distance": 0.0,
+    "ant_x": 0.0,
+    "ant_y": 0.0,
+    "theta": 0.0,
+    "posiciones_visitadas": []
+}
 
-# Función para resetear la posición del robot
-async def reset_position(robot_1):
-    await robot_1.reset_navigation()
+async def init_vars():
+    """
+    Función que inicializa las variables globales
+    """
+    global_vars["speed"] = 5
+    global_vars["th"] = 150
+    global_vars["distance"] = 0.0
+    global_vars["ant_x"] = 0.0
+    global_vars["ant_y"] = 0.0
+    global_vars["theta"] = 0.0
+    global_vars["posiciones_visitadas"] = []
 
-# Función para generar una señal luminosa azul y una señal sonora para indicar el inicio del movimiento
-async def señal_inicio_movimiento(robot_1):
-    await robot_1.set_lights_on_rgb(0, 0, 255)  # Luz azul
-    await robot_1.play_note(Note.C4, 1.0)
+# Comienza el movimiento del robot indicando luz azul y nota musical
+async def movimiento(robot_instance):
+    """
+    Función que inicia el movimiento del robot
+    """
+    await robot_instance.set_lights_on_rgb(0, 0, 255)
+    await robot_instance.set_wheel_speeds(global_vars["speed"], global_vars["speed"])
 
-# Función para mostrar la posición de inicio de la misión del robot
-def print_pos_inicio(robot_1):
-    x = robot_1.pose.x
-    y = robot_1.pose.y
-    theta = robot_1.pose.heading
-    print(f'Posición de inicio: ({x:.2f}, {y:.2f}, {theta:.1f}°)')
+# Detiene el robot al detectar obstáculo, enciende luz roja y suena una nota
+async def obstaculo(robot_instance):
+    """
+    Función que detiene el robot al detectar un obstáculo
+    """
+    await robot_instance.set_wheel_speeds(0, 0)
+    await robot_instance.set_lights_on_rgb(255, 0, 0)
+    await robot_instance.play_note(Note.A5, 1.5)
+    await robot_instance.wait(1)
 
-# Función para establecer la velocidad del robot
-async def set_speed(robot_1, speed):
-    await robot_1.set_wheel_speeds(speed, speed)
+    final_position = await robot_instance.get_position()
+    print(f"Punto final de misión: {final_position}")
 
-# Función para detener el movimiento del robot cuando esté a 15 cm del obstáculo
-async def detener_movimiento(robot_1, threshold):
+    act_x = abs(final_position.x)
+    act_y = abs(final_position.y)
+    theta = final_position.heading
+    print(f"x: {act_x}, y: {act_y}, θ: {theta}")
+
+    # Append visited position to list
+    global_vars["posiciones_visitadas"].append((act_x, act_y, theta))
+
+    # Calcula la distancia recorrida aplicando el Teorema de Pitágoras
+    global_vars["distance"] += math.sqrt(
+        (act_x - global_vars["ant_x"]) ** 2 +
+        (act_y - global_vars["ant_y"]) ** 2
+    )
+    global_vars["ant_x"] = act_x
+    global_vars["ant_y"] = act_y
+    global_vars["theta"] = theta
+
+    print("Distancia recorrida:", global_vars["distance"])
+
+# Detección de obstáculos en el frente
+async def deteccion(robot_instance):
+    """
+    Función que detecta obstáculos en el frente
+    """
     while True:
-        sensors = (await robot_1.get_ir_proximity()).sensors
-        if sensors[3] > threshold:
-            await robot_1.set_wheel_speeds(0, 0)
-            break
+        sensors = (await robot_instance.get_ir_proximity()).sensors
+        if front_obstacle(sensors):
+            await obstaculo(robot_instance)
 
-# Función para generar una señal luminosa roja y una señal sonora cuando se detecta un obstáculo
-async def señal_obstaculo(robot_1):
-    await robot_1.set_lights_on_rgb(255, 0, 0)  # Luz roja
-    await robot_1.play_note(Note.C4, 1.0)
+            #Luz verde
+            await robot_instance.set_lights_on_rgb(0, 255, 0)
+            await robot_instance.play_note(Note.A5, 1.5)
 
-# Función para generar una señal luminosa verde y una señal sonora para indicar el final de la etapa
-async def señal_final_etapa(robot_1):
-    await robot_1.set_lights_on_rgb(0, 255, 0)  # Luz verde
-    await robot_1.play_note(Note.G4, 1.0)
+            # Luz amarilla para indicar inspección
+            await robot_instance.set_lights_on_rgb(255, 255, 0)
+            await robot_instance.play_note(Note.A5, 0.5)
 
-# Función para mostrar la nueva posición del robot y la distancia recorrida
-def print_pos_nueva(robot_1):
-    x = robot_1.pose.x
-    y = robot_1.pose.y
-    theta = robot_1.pose.heading
-    print(f'Nueva posición: ({x:.2f}, {y:.2f}, {theta:.1f}°)')
+            # Giro a la derecha para explorar la primera dirección
+            await robot_instance.turn_right(90)
+            sensors = (await robot_instance.get_ir_proximity()).sensors
 
-# Función para girar el robot un ángulo dado 
-async def girar(robot_1, theta=90):
-    await robot_1.turn_right(theta)
+            if front_obstacle(sensors):  # Si también hay obstáculo en esa dirección
+                await robot.set_wheel_speeds(0, 0)
+                await robot.set_lights_on_rgb( 255, 0 , 0)
+                await robot.play_note(Note.A5, 1.5)
+                await robot.set_lights_on_rgb( 0, 255 , 0)
+                await robot.play_note(Note.A5, 1.5)
+                await robot.set_lights_on_rgb(255, 255, 0)  # Luz amarilla para indicar inspección
+                await robot.play_note(Note.A5, 0.5)
+                # Giramos 180 grados para explorar la segunda dirección
+                await robot_instance.turn_right(180)
+                sensors = (await robot_instance.get_ir_proximity()).sensors
+                if front_obstacle(sensors):  # Si hay obstáculo en ambas direcciones
+                    await finalizar_mision(robot_instance)  # Se finaliza la misión
+                    break
+            else:
+                await movimiento(robot_instance)  # Si no hay obstáculo, continuamos moviendo
+        else:
+            await movimiento(robot_instance)  # Continúa moviéndose si no hay obstáculos
 
-# Función para inspeccionar ambas direcciones y determinar hacia dónde moverse
-async def inspeccion_y_decision(robot_1, threshold=150):
-    # Inspección hacia la derecha (90 grados)
-    await robot_1.set_lights_on_rgb(255, 255, 0)  # Luz amarilla para inspección
-    await girar(robot_1, 90)
-    sensors_derecha = (await robot_1.get_ir_proximity()).sensors
+# Finaliza la misión con luz verde y una nota musical
+async def finalizar_mision(robot_instance):
+    """
+    Función que finaliza la misión
+    """
+    await robot_instance.set_wheel_speeds(0, 0)
+    await robot_instance.set_lights_on_rgb(255, 0, 0)
+    await robot_instance.play_note(Note.A5, 1.5)
+    await robot_instance.set_lights_on_rgb(0, 255, 0)
+    await robot_instance.play_note(Note.C6, 2.0)
+    await robot_instance.set_lights_on_rgb(255, 255, 0)  # Luz amarilla para indicar inspección
+    await robot_instance.wait(10)
+    print("Misión completada: finalización de la ronda")
+    print("La distancia recorrida total de la ronda ha sido:", global_vars["distance"])
+    print("Posiciones visitadas:", global_vars["posiciones_visitadas"])
 
-    # Inspección hacia la izquierda (180 grados para volver a la posición original y girar hacia la izquierda)
-    await girar(robot_1, 180)
-    sensors_izquierda = (await robot_1.get_ir_proximity()).sensors
+# Función que imprime la posición inicial
+async def print_pos_inicio(robot_instance):
+    """
+    Función que imprime la posición inicial
+    """
+    print('Punto Inicio Mision =', await robot_instance.get_position())
 
-    # Volver a la posición original (girar 90 grados)
-    await girar(robot_1, 90)
+# Función que determina si hay un obstáculo al frente
+def front_obstacle(sensors):
+    """
+    Función que determina si hay un obstáculo al frente
+    """
+    print(sensors[3])  # Sensores frontales
+    return sensors[3] > global_vars["th"]  # Si la lectura es mayor que el umbral, hay un obstáculo
 
-    # Decisión de movimiento basado en los sensores
-    if sensors_derecha[3] <= threshold and sensors_izquierda[3] <= threshold:
-        # Ambas direcciones bloqueadas
-        return False
-    elif sensors_derecha[3] > threshold:
-        # Mover hacia la derecha
-        await girar(robot_1, 90)
-    elif sensors_izquierda[3] > threshold:
-        # Mover hacia la izquierda
-        await girar(robot_1, -90)
+async def ir_func(robot_instance):
+    """
+    Funcion de movimiento
+    """
+    await robot_instance.reset_navigation()  # Resetea la navegación
+    await print_pos_inicio(robot_instance)  # Imprime la posición de inicio
+    await robot_instance.set_lights_on_rgb(0, 0, 255)  # Luz azul
+    await robot_instance.play_note(Note.A5, 1.5)  # Suena una nota para indicar el inicio
+    await movimiento(robot_instance)  # Comienza el movimiento
+    await deteccion(robot_instance)  # Comienza la detección de obstáculos
 
-    return True  # Todavía hay direcciones posibles para moverse
+async def volver_func(robot_instance):
+    """
+    Función que hace que el robot vuelva a la posición inicial recorriendo de inversamente el array de posiciones visitadas
+    """
+    await robot_instance.set_lights_on_rgb(0, 0, 255)  # Luz azul
+    await robot_instance.play_note(Note.A5, 1.5)  # Suena una nota para indicar el inicio
+    await robot_instance.set_wheel_speeds(global_vars["speed"], global_vars["speed"])  # Velocidad del robot
+    for i in range(len(global_vars["posiciones_visitadas"]) - 1, -1, -1):  # Recorremos el array de posiciones visitadas de forma inversa
+        await robot_instance.go_to(global_vars["posiciones_visitadas"][i][0], global_vars["posiciones_visitadas"][i][1], global_vars["posiciones_visitadas"][i][2])  # Movemos el robot a la posición visitada
+        await robot_instance.wait(1)  # Esperamos 1 segundo
+    await robot_instance.set_wheel_speeds(0, 0)  # Detenemos el robot
+    await robot_instance.set_lights_on_rgb(255, 0, 0)  # Luz roja
+    await robot_instance.play_note(Note.A5, 1.5)  # Suena una nota para indicar la finalización
 
-# Función para recordar las posiciones visitadas por el robot
-def recordar_posicion(robot_1):
-    # Obtenemos la posición actual del robot_1
-    posicion_actual = (robot_1.pose.position.x, robot_1.pose.position.y)
-    
-    # Verificar si ya se visitó esta posición
-    if posicion_actual not in lugares_visitados:
-        lugares_visitados.append(posicion_actual)
-        print(f"Lugar nuevo visitado: {posicion_actual}")
-    else:
-        print(f"Este lugar ya fue visitado: {posicion_actual}")
-
-# Evento de inicio de la misión
 @event(robot.when_play)
-async def play(robot_1):
+async def play(robot_instance):
+    """
+    Función que se ejecuta al iniciar el robot
+    """
+    await init_vars()  # Inicializa las variables globales
+    await ir_func(robot_instance)
 
-    speed=5
-    th=150
 
-    # Etapa 1: Inicio
-    await reset_position(robot_1)
-    await señal_inicio_movimiento(robot_1)
-    print_pos_inicio(robot_1)
-    await set_speed(robot_1, speed)
-    await detener_movimiento(robot_1, th)
-    await señal_obstaculo(robot_1)
-    await señal_final_etapa(robot_1)
-    print_pos_nueva(robot_1)
-
-    # Recordar la primera posición visitada
-    recordar_posicion(robot_1)
-
-    # Etapa 2: Inspección y Continuación hasta que ambas direcciones estén bloqueadas
-    while True:
-        direccion_disponible = await inspeccion_y_decision(robot_1)
-
-        # Recordar cada nueva posición
-        recordar_posicion(robot_1)
-
-        if not direccion_disponible:
-            print("Ambas direcciones bloqueadas. Deteniendo el robot.")
-
-            # Señal roja para indicar bloqueo y detener el robot
-            await robot_1.set_wheel_speeds(0, 0)
-            await señal_obstaculo(robot_1)
-
-            # Parada de 10 segundos
-            print("Parada de 10 segundos...")
-            await robot_1.set_wheel_speeds(0, 0)
-            robot_1.wait(10)
-
-            # Señal luminosa amarilla al finalizar la pausa
-            await robot_1.set_lights_on_rgb(255, 255, 0)  # Luz amarilla
-            print("Reanudando movimiento...")
-
-            # Después de la pausa, romper el ciclo (el robot se detiene permanentemente)
-            break
-
-        # Continuar movimiento
-        await set_speed(robot_1, speed)
-        await detener_movimiento(robot_1, th)
-
-        # Señal luminosa y sonora al detectar un obstáculo
-        await señal_obstaculo(robot_1)
-
-        # Final de la etapa
-        await señal_final_etapa(robot_1)
-        print_pos_nueva(robot_1)
-
-# Ejecutar la función play
+# Inicia el robot
 robot.play()
