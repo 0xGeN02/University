@@ -4,3 +4,6 @@
 [submodule "1/EstructuraDatos/Huffman-Codification/huffman-webpage"]
     path = 1/EstructuraDatos/Huffman-Codification/huffman-webpage
     url = https://github.com/0xGeN02/Huffman-Codification.git
+[submodule "2/Automatas/TelephneNumberAutomata"]
+	path = 2/Automatas/TelephneNumberAutomata
+	url = https://github.com/0xGeN02/TelephoneNumberAutomata.git
