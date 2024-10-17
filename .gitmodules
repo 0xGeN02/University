@@ -10,3 +10,6 @@
 [submodule "2/ComplejidadComputacuional/PokemonTeamGenerator"]
     path = 2/ComplejidadComputacuional/PokemonTeamGenerator
     url = https://github.com/0xGeN02/PokemonTeamGenerator.git
+[submodule "2/IA/proyect"]
+    path = 2/IA/proyect
+    url = https://github.com/0xGeN02/chatbot_AI.git
