@@ -1,0 +1,6 @@
+[submodule "3/AutomatizacionRobotizacion/Autodiagnostico/autodiagnostico"]
+    path = 3/AutomatizacionRobotizacion/Autodiagnostico/autodiagnostico
+    url = https://github.com/0xGeN02/autodiagnostico.git
+[submodule "1/EstructuraDatos/Huffman-Codification/huffman-webpage"]
+    path = 1/EstructuraDatos/Huffman-Codification/huffman-webpage
+    url = https://github.com/0xGeN02/Huffman-Codification.git
