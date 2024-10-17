@@ -7,3 +7,6 @@
 [submodule "2/Automatas/TelephoneNumberAutomata"]
 	path = 2/Automatas/TelephoneNumberAutomata
 	url = https://github.com/0xGeN02/TelephoneNumberAutomata.git
+[submodule "2/ComplejidadComputacuional/PokemonTeamGenerator"]
+    path = 2/ComplejidadComputacuional/PokemonTeamGenerator
+    url = https://github.com/0xGeN02/PokemonTeamGenerator.git
