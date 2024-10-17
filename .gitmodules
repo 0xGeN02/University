@@ -13,3 +13,6 @@
 [submodule "2/IA/proyect"]
     path = 2/IA/proyect
     url = https://github.com/0xGeN02/chatbot_AI.git
+[submodule "3/RobotsAutonomos/irobot-edu-python-sdk"]
+    path = 3/RobotsAutonomos/irobot-edu-python-sdk
+    url = https://github.com/iRobotEducation/irobot-edu-python-sdk.git
