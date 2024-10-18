@@ -176,7 +176,7 @@ async def play(robot_instance):
     """
     await init_vars()  # Inicializa las variables globales
     await ir_func(robot_instance)
-
+    await volver_func(robot_instance)
 
 # Inicia el robot
 robot.play()

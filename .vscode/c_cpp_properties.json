@@ -7,6 +7,7 @@
                 "C:/Users/manue/AppData/Local/Arduino15/packages/arduino/hardware/avr/1.8.6/cores/arduino",
                 "C:/Users/manue/AppData/Local/Arduino15/packages/arduino/hardware/avr/1.8.6/variants/standard",
                 "C:/Users/manue/AppData/Local/Arduino15/libraries/**"
+
             ],
             "defines": [
                 "_DEBUG",
