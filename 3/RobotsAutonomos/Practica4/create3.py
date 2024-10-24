@@ -8,8 +8,6 @@ from irobot_edu_sdk.backend.bluetooth import Bluetooth
 from irobot_edu_sdk.robots import event, Create3
 from irobot_edu_sdk.music import Note
 
-robot = Create3(Bluetooth())
-
 # Clase de colores
 class Color:
     """
@@ -22,7 +20,7 @@ class Color:
     CYAN = (0, 255, 255)
     MAGENTA = (255, 0, 255)
     PURPLE = (128, 0, 128)
-    ORANGE = (255, 165, 0)
+    ORANGE = (255, 75, 8)
     VIOLET = (238, 130, 238)
     WHITE = (255, 255, 255)
     BLACK = (0, 0, 0)
@@ -46,13 +44,10 @@ class Color:
 class ExplorerRobot(Create3):
     """
         Extensión de la clase Create3 para el robot explorerRobot:
-            -deteccion_obstaculos: Método para detectar obstáculos✅
-            -moverse: Método para moverse✅
-            -inspeccion: Método para inspeccionar (aleatorio o en una dirección específica)✅
-            -get_position: Método para obtener la posición del robot✅
-            -get_distance: Método para obtener la distancia total recorrida✅
-            -navegacion: Método para navegar por los obstáculos guradados
-            -set_color_note: Método para crear agrupaciones de color y nota✅
+        - Navegación autónoma
+        - Detección de obstáculos
+        - Inspección de obstáculos
+        - Recorrido y almacenamiento de posiciones
     """
 
     def __init__(self, backend):
@@ -64,23 +59,23 @@ class ExplorerRobot(Create3):
         self.data = {
             'name': 'ExplorerRobot',
             'version': '1.0.0',
-            'author': 'Hugo, Jaki, Carlos, Mateo',
+            'author': 'Hugo, Jaqueline, Carlos, Mateo',
             'description': 'Robot autónomo que navega por un entorno con obstaculos y recuerda el recorrido',
             'status': 'In development',
             'license': 'MIT'
         }
         # Diccionario que agrupa toda la información del recorrido y estado del robot
-        self.estado_robot = {
+        self.explore = {
             'recorrido': {
                 #'0': {
                 #   'posicion': {'x': 0, 'y': 0, 'theta': 0},
-                #   'obstaculos': [[0, 0, 0], [0, 1, 0], [0, 0, 0]]
+                #   'matriz': [[0, 0, 0], [0, 1, 0], [0, 0, 0]]
                 # },
                 #'1': {
                 #   'posicion': {'x': 0, 'y': 0, 'theta': 0},
-                #   'obstaculos': [[0, 0, 0], [0, 1, 0], [0, 0, 0]]
+                #   'matriz': [[0, 0, 0], [0, 1, 0], [0, 0, 0]]
                 # }
-            }  # Recorrido completo con obstáculos y paradas
+            }   # Recorrido completo con obstáculos y paradas
         }
 
     async def set_color_note(self, select_group: str ='default', note_timer: int =1.5):
@@ -95,10 +90,12 @@ class ExplorerRobot(Create3):
         # Definir las combinaciones de color y notas predefinidas
         combinaciones = {
             'default': (Color.get_color('WHITE'), Note.A4),
-            'moverse': (Color.get_color('BLUE'), Note.C2),
-            'deteccion': (Color.get_color('RED'), Note.B1),
-            'inspeccion': (Color.get_color('YELLOW'), Note.C2_SHARP),
-            'finalizacion': (Color.get_color('GREEN'), Note.A3)
+            'moverse': (Color.get_color('BLUE'), Note.C4),
+            'deteccion': (Color.get_color('RED'), Note.B4),
+            'inspeccion': (Color.get_color('YELLOW'), Note.D4),
+            'finalizacion': (Color.get_color('PURPLE'), Note.E4),
+            'end_phase': (Color.get_color('GREEN'), Note.F4),
+            'visitado': (Color.get_color('ORANGE'), Note.G4),
         }
 
         # Buscar la combinación seleccionada
@@ -130,6 +127,7 @@ class ExplorerRobot(Create3):
 
         # Movemos el robot a la velocidad indicada
         await self.set_wheel_speeds(speed, speed)
+
         return f'Robot moviéndose a {speed} mm/s'
 
     async def get_position(self) -> str:
@@ -148,7 +146,7 @@ class ExplorerRobot(Create3):
         call: explorer_robot.get_distance()
         """
         distance = 0
-        recorrido = self.estado_robot['recorrido']
+        recorrido = self.explore['recorrido']
         paradas = list(recorrido.values())
 
         for i in range(1, len(paradas)):
@@ -182,25 +180,32 @@ class ExplorerRobot(Create3):
 
     async def append_parada(self):
         """
-        Metodo para crear un punto P[idx]: {Posicion {x,y,theta}, Obstaculo: [][][],[][][],[][][]} y añadirlo al recorrido
+        Metodo para crear un punto
+        [idx]:
+            {
+                Posicion: {'x': x,'y': y,'theta': theta},
+                Matriz:   [][][],[][][],[][][]
+            }
+        y añadirlo al recorrido
         call: await explorer_robot.append_parada()
         """
-        #Creamos la posicion P[idx] y la añadimos al recorrido
+        #Creamos la posicion [idx] y la añadimos al recorrido
         #Obtenemos el pose actual del robot
         pose = await self.get_position()
-        #Creamos la matriz vacia de obstaculos
-        matrix = [['Undefined','Undefined','Undefined'], ['Undefined','ExplorerRobot','Undefined'], ['Undefined', 0,'Undefined']]
+        #Creamos la matriz
+        matriz = [['Undefined','Undefined','Undefined'], ['Undefined','ExplorerRobot','Undefined'], ['Undefined', 0,'Undefined']]
 
         # Obtenemos el numero de paradas actuales
-        current_idx = len(self.estado_robot['recorrido'])
+        current_idx = len(self.explore['recorrido'])
 
         # Creamos y guardamos la parada como idx en el recorrido
-        self.estado_robot['recorrido'][current_idx] = {
+        self.explore['recorrido'][current_idx] = {
             'posicion': pose,
-            'obstaculos': matrix
+            'matriz': matriz
         }
+        return f'Parada {current_idx} añadida al recorrido'
 
-    async def inspeccion(self, th: int = 15):
+    async def inspeccion(self, th: int = 150):
         """
         Método para inspeccionar los obstáculos tanto frontal como a los lados
         @exit_code: @default: None, 200=>Free Space, 400=> Blocked
@@ -213,27 +218,31 @@ class ExplorerRobot(Create3):
         await self.set_color_note('inspeccion', 1.5)
 
         # Recuperamos la ultima parada
-        paradas = self.estado_robot['recorrido']
-        current_idx = len(paradas)
+        paradas = self.explore['recorrido']
+        current_idx = len(paradas)-1
         current_parada = paradas[current_idx]
-        matriz = current_parada['obstaculos']
+        matriz = current_parada['matriz']
 
         # Determinamos el obstaculo de delante
         matriz[0][1] = 1
 
         #hacer giro aleatorio
-        await self.giro()
+        turn, angle = await self.giro()
 
         #Si gira a la derecha:
-        if await self.giro() == ('right', 90):
+        if (turn, angle) == ('right', 90):
             # Derecha si
-            if (await self.get_ir_proximity()).sensors[1] < th:
+            sensor = (await self.get_ir_proximity()).sensors
+            if sensor[3] > th:
                 matriz[1][2] = 1
                 await self.set_color_note('deteccion', 1.5)
+                await self.set_color_note('inspeccion', 1.5)
+
                 # Giramos a la izquierda 180 grados
                 await self.giro('left', 180)
                 #Detectamos si hay obstaculo en la izquierda
-                if (await self.get_ir_proximity()).sensors[1] < th:
+                sensor = (await self.get_ir_proximity()).sensors
+                if sensor[3] > th:
                     matriz[1][0] = 1
                     await self.set_color_note('deteccion', 1.5)
                     # Derecha si Izquierda si
@@ -241,66 +250,157 @@ class ExplorerRobot(Create3):
                 #Derecha si Izquierda no
                 else:
                     matriz[1][0] = 0
+                    await self.set_color_note('movimiento', 1.5)
+                    exit_code = 200
             #Derecha no        exit_code = 200
             else:
                 matriz[1][2] = 0
                 matriz[1][0] = 'Not explored'
+                await self.set_color_note('movimiento', 1.5)
                 exit_code = 200
 
         #Si gira a la izquierda:
-        elif await self.giro() == ('left', 90):
+        elif (turn, angle) == ('left', 90):
             # Izquierda si
-            if (await self.get_ir_proximity()).sensors[1] < th:
+            sensor = (await self.get_ir_proximity()).sensors
+            if sensor[3] > th:
                 matriz[1][0] = 1
                 await self.set_color_note('deteccion', 1.5)
+                await self.set_color_note('inspeccion', 1.5)
+
                 # Giramos a la derecha 180 grados
                 await self.giro('right', 180)
+
                 #Detectamos si hay obstaculo en la derecha
-                if (await self.get_ir_proximity()).sensors[1] < th:
+                # Izquierda si Derecha si   exit_code = 400
+                sensor = (await self.get_ir_proximity()).sensors
+                if sensor[3] > th:
                     matriz[1][2] = 1
                     await self.set_color_note('deteccion', 1.5)
-                    # Izquierda si Derecha si
                     exit_code = 400
-                #Izquierda si Derecha no
+                #Izquierda si Derecha no      exit_code = 200
                 else:
                     matriz[1][2] = 0
+                    await self.set_color_note('movimiento', 1.5)
+                    exit_code = 200
             #Izquierda no        exit_code = 200
             else:
                 matriz[1][0] = 0
                 matriz[1][2] = 'Not explored'
+                await self.set_color_note('movimiento', 1.5)
                 exit_code = 200
 
-        return matriz, exit_code
+        return matriz, current_idx, exit_code
+
+    async def append_obstaculo(self, idx: int, matriz: list):
+        """
+        Método para añadir un obstáculo a la matriz de obstáculos de una parada
+        @param idx: Índice de la parada
+        @param matriz: Matriz de obstáculos
+        @return: Retorna la matriz de obstáculos actualizada
+        call: await explorer_robot.append_obstaculo(0, [[0, 0, 0], [0, 1, 0], [0, 0, 0]])
+        """
+        # Añadir la matriz de obstáculos a la parada correspondiente
+        self.explore['recorrido'][idx]['matriz'] = matriz
+        print(f'Obstáculos añadidos a la parada {idx}')
+        print(matriz)
 
     async def detectar_obstaculos(self, th: int = 150):
         """
-        Método para detectar obstáculos
+        Método para detectar obstáculos y navegar por ellos
+        @param th: Distancia de detección de obstáculos
+        @return: 
         """
         while True:
             sensor = (await self.get_ir_proximity()).sensors
-            if sensor[2] < th:
-                await self.set_color_note('deteccion', 1.5)
+            if sensor[3] > th:
                 await self.set_speed(0)
+                await self.set_color_note('deteccion', 1.5)
+
                 # Creamos la posicion P[idx] y la añadimos al recorrido
-                self.append_parada()
+                await self.append_parada()
                 #LLamamos a inspeccion
-                await self.inspeccion()
+                matriz, idx, code = await self.inspeccion()
 
-# Ejemplo de uso
-explorer_robot = ExplorerRobot(Bluetooth())
+                #Añadimos la matriz a la parada
+                await self.append_obstaculo(idx, matriz)
 
-# Evento de inicio del robot
-@event(explorer_robot.when_play)
-async def play():
+                #Hacemos un switch case para el exit_code
+                if code == 200:
+                    await self.set_speed(20)
+                    await self.set_color_note('moverse', 1.5)
+                elif code == 400:
+                    await self.set_speed(0)
+                    await self.set_color_note('end_phase', 1.5)
+                    break
+                else:
+                    print('Error en el código de salida')
+                    break
+
+    async def recorrer_puntos(self, vueltas: int = 1, cambiar_color: bool = False):
+        """
+        Método para recorrer los puntos almacenados en el recorrido
+        @param vueltas: Número de vueltas a realizar
+        @param cambiar_color: Indica si se debe cambiar el color en cada punto visitado
+        @if: Si i es par, recorre los puntos en el orden almacenado; si es impar, recorre inversamente el array
+        @return: Retorna el recorrido completo
+        """
+
+        colores = ['CYAN', 'MAGENTA', 'ORANGE', 'VIOLET']
+
+        for i in range(vueltas):
+            # Si la vuelta es par, recorrer los puntos en orden normal
+            if i % 2 != 0:
+                puntos = list(self.explore['recorrido'].values())
+            # Si la vuelta es impar, recorrer los puntos en orden inverso
+            else:
+                puntos = list(self.explore['recorrido'].values())[::-1]  # [::-1] invierte la lista
+
+            # Imprimir los puntos que se van a recorrer en esta vuelta
+            print(f'Vuelta {i + 1}: Puntos a recorrer = {[punto["posicion"] for punto in puntos]}')
+
+            for punto in puntos:
+                # Obtenemos la posicion del punto a visitar (comenzando en 0 o en el último)
+                posicion = punto['posicion']
+                await self.set_color_note('moverse', 1.5)
+
+                # Dirigimos el robot a la posición almacenada
+                await self.navigate_to(posicion['x'], posicion['y'], posicion['theta'])
+                await self.wait(1)
+
+                if cambiar_color is True:
+                    color = random.choice(colores)
+                    color_rgb = Color.get_color(color)
+                    await self.set_lights_rgb(color_rgb[0], color_rgb[1], color_rgb[2])
+                    await self.play_note(Note.C4, 1.5)
+                else:
+                    await self.set_color_note('visitado', 1.5)
+
+        await self.set_color_note('end_phase', 1.5)
+        return 'Recorrido completo'
+
+backend_instance = Bluetooth()
+explorer = ExplorerRobot(backend_instance)
+
+@event(explorer.when_play)
+async def play(explorer_instance):
     """
-    Evento de inicio del robot
+    Función que inicia la misión
     """
-    print(explorer_robot.get_position())  # Imprime la posición inicial
-    await explorer_robot.set_color_note('moverse', 1)
-    await explorer_robot.set_speed(20)  # Mover el robot
-    print(explorer_robot.get_position())  # Imprime la posición después de moverse
-    await explorer_robot.giro()  # giro aleatorio
-    await explorer_robot.set_color_note('inspeccion', 10)
+    print('Iniciando robot ...')
+    await explorer_instance.set_color_note()
+    print('Posición inicial:', await explorer_instance.get_position())
 
-# Inicia el robot
-explorer_robot.play()
+    print('Inicio de la misión')
+    await explorer_instance.set_speed()
+    await explorer_instance.detectar_obstaculos()
+
+    print('Fin de la fase de exploración')
+    print('Posición final:', await explorer_instance.get_position())
+    print('Distancia recorrida:', await explorer_instance.get_distance())
+
+    print('Recorriendo puntos almacenados')
+    await explorer_instance.recorrer_puntos(vueltas=1, cambiar_color=True)
+    print('Fin de la misión')
+
+explorer.play()
