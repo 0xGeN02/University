@@ -2,11 +2,11 @@
     path = 3/AutomatizacionRobotizacion/Autodiagnostico/autodiagnostico
     url = https://github.com/0xGeN02/autodiagnostico.git
 [submodule "1/EstructuraDatos/Huffman-Codification/huffman-webpage"]
-	path = 1/EstructuraDatos/Huffman-Codification/huffman-webpage
-	url = https://github.com/0xGeN02/Huffman-Codification.git
+    path = 1/EstructuraDatos/Huffman-Codification/huffman-webpage
+    url = https://github.com/0xGeN02/Huffman-Codification.git
 [submodule "2/Automatas/TelephoneNumberAutomata"]
-	path = 2/Automatas/TelephoneNumberAutomata
-	url = https://github.com/0xGeN02/TelephoneNumberAutomata.git
+    path = 2/Automatas/TelephoneNumberAutomata
+    url = https://github.com/0xGeN02/TelephoneNumberAutomata.git
 [submodule "2/ComplejidadComputacuional/PokemonTeamGenerator"]
     path = 2/ComplejidadComputacuional/PokemonTeamGenerator
     url = https://github.com/0xGeN02/PokemonTeamGenerator.git
@@ -16,6 +16,3 @@
 [submodule "3/RobotsAutonomos/irobot-edu-python-sdk"]
     path = 3/RobotsAutonomos/irobot-edu-python-sdk
     url = https://github.com/iRobotEducation/irobot-edu-python-sdk.git
-[submodule "3/ArquitecturaSoftware/crm_reuniones"]
-	path = 3/ArquitecturaSoftware/crm_schedules
-	url = https://github.com/0xGeN02/crm_schedules.git
