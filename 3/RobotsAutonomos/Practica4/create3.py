@@ -2,8 +2,11 @@
 Practica 4: Funcionalizar el codigo del iRobot Create3
 """
 
+import os
+import json
 import math
 import random
+from datetime import datetime
 from irobot_edu_sdk.backend.bluetooth import Bluetooth
 from irobot_edu_sdk.robots import event, Create3
 from irobot_edu_sdk.music import Note
@@ -337,6 +340,34 @@ class ExplorerRobot(Create3):
                     print('Error en el código de salida')
                     break
 
+    async def guardar_recorrido(self):
+        """
+        Metodo para guardar el recorrido en un JSON
+        """
+
+        #Creamos el nombre del archivo con el timestamp
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+
+        #Definimos directorio
+        directorio = './recorridos'
+        if not os.path.exists(directorio):
+            os.makedirs(directorio)
+
+        #Generamos name del archivo
+        name = os.path.join(directorio, f'recorrido_{timestamp}.json' )
+
+        #Creamos la data
+        data = {
+            "data" : self.data,
+            "explore": self.explore
+        }
+
+        #Guardamos la data ene le archivo json
+        with open(name, 'w', encoding='utf-8') as file:
+            json.dump(data, file, indent=4)
+
+        return f'{name} creado correctamente'
+
     async def recorrer_puntos(self, vueltas: int = 1, cambiar_color: bool = False):
         """
         Método para recorrer los puntos almacenados en el recorrido
@@ -401,6 +432,7 @@ async def play(explorer_instance):
 
     print('Recorriendo puntos almacenados')
     await explorer_instance.recorrer_puntos(vueltas=1, cambiar_color=True)
+    await explorer_instance.guardar_recorrido()
     print('Fin de la misión')
 
 explorer.play()
