@@ -63,7 +63,7 @@ class ExplorerRobot(Create3):
             'name': 'ExplorerRobot',
             'version': '1.0.0',
             'author': 'Hugo, Jaqueline, Carlos, Mateo',
-            'description': 'Robot autónomo que navega por un entorno con obstaculos y recuerda el recorrido',
+            'description': 'Robot autonomo que navega por un entorno con obstaculos y recuerda el recorrido',
             'status': 'In development',
             'license': 'MIT'
         }
@@ -345,28 +345,30 @@ class ExplorerRobot(Create3):
         Metodo para guardar el recorrido en un JSON
         """
 
-        #Creamos el nombre del archivo con el timestamp
+        # Creamos el nombre del archivo con el timestamp
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
 
-        #Definimos directorio
-        directorio = './recorridos'
-        if not os.path.exists(directorio):
-            os.makedirs(directorio)
+        # Definimos el path base del archivo
+        path = os.path.dirname(os.path.abspath(__file__))
 
-        #Generamos name del archivo
-        name = os.path.join(directorio, f'recorrido_{timestamp}.json' )
+        # Creamos el directorio recorridos si no existe
+        directorio = os.path.join(path, 'recorridos')
+        os.makedirs(directorio, exist_ok=True)
 
-        #Creamos la data
+        # Generamos name del archivo
+        file_path = os.path.join(directorio, f'Lab02_Entorno_{timestamp}.json')
+
+        # Creamos la data
         data = {
-            "data" : self.data,
+            "data": self.data,
             "explore": self.explore
         }
 
-        #Guardamos la data ene le archivo json
-        with open(name, 'w', encoding='utf-8') as file:
+        # Guardamos la data en el archivo json
+        with open(file_path, 'w', encoding='utf-8') as file:
             json.dump(data, file, indent=4)
 
-        return f'{name} creado correctamente'
+        return f'{file_path} creado correctamente'
 
     async def recorrer_puntos(self, vueltas: int = 1, cambiar_color: bool = False):
         """
@@ -410,7 +412,8 @@ class ExplorerRobot(Create3):
         await self.set_color_note('end_phase', 1.5)
         return 'Recorrido completo'
 
-backend_instance = Bluetooth()
+ROBOT_NAME = "C3_UIEC_Grupo1"
+backend_instance = Bluetooth(ROBOT_NAME)
 explorer = ExplorerRobot(backend_instance)
 
 @event(explorer.when_play)
@@ -432,7 +435,8 @@ async def play(explorer_instance):
 
     print('Recorriendo puntos almacenados')
     await explorer_instance.recorrer_puntos(vueltas=1, cambiar_color=True)
-    await explorer_instance.guardar_recorrido()
+    archive_name= await explorer_instance.guardar_recorrido()
+    print(f'{archive_name} creado')
     print('Fin de la misión')
 
 explorer.play()

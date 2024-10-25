@@ -1,0 +1,38 @@
+{
+    "data": {
+        "name": "ExplorerRobot",
+        "version": "1.0.0",
+        "author": "Hugo, Jaqueline, Carlos, Mateo",
+        "description": "Robot autonomo que navega por un entorno con obstaculos y recuerda el recorrido",
+        "status": "In development",
+        "license": "MIT"
+    },
+    "explore": {
+        "recorrido": {
+            "0": {
+                "posicion": {
+                    "x": 0,
+                    "y": 0,
+                    "theta": 90
+                },
+                "matriz": [
+                    [
+                        "Undefined",
+                        1,
+                        "Undefined"
+                    ],
+                    [
+                        1,
+                        "ExplorerRobot",
+                        1
+                    ],
+                    [
+                        "Undefined",
+                        0,
+                        "Undefined"
+                    ]
+                ]
+            }
+        }
+    }
+}
