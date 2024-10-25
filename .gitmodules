@@ -16,6 +16,6 @@
 [submodule "3/RobotsAutonomos/irobot-edu-python-sdk"]
     path = 3/RobotsAutonomos/irobot-edu-python-sdk
     url = https://github.com/iRobotEducation/irobot-edu-python-sdk.git
-[submodule "arquitectura_de_software/crm_reuniones"]
-	path = arquitectura_de_software/crm_reuniones
+[submodule "3/ArquitecturaSoftware/crm_reuniones"]
+	path = 3/ArquitecturaSoftware/crm_schedules
 	url = https://github.com/0xGeN02/crm_schedules.git
