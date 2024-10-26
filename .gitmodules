@@ -1,9 +1,6 @@
 [submodule "3/AutomatizacionRobotizacion/Autodiagnostico/autodiagnostico"]
     path = 3/AutomatizacionRobotizacion/Autodiagnostico/autodiagnostico
     url = https://github.com/0xGeN02/autodiagnostico.git
-[submodule "1/EstructuraDatos/Huffman-Codification/huffman-webpage"]
-    path = 1/EstructuraDatos/Huffman-Codification/huffman-webpage
-    url = https://github.com/0xGeN02/Huffman-Codification.git
 [submodule "2/Automatas/TelephoneNumberAutomata"]
     path = 2/Automatas/TelephoneNumberAutomata
     url = https://github.com/0xGeN02/TelephoneNumberAutomata.git
@@ -16,3 +13,6 @@
 [submodule "3/RobotsAutonomos/irobot-edu-python-sdk"]
     path = 3/RobotsAutonomos/irobot-edu-python-sdk
     url = https://github.com/iRobotEducation/irobot-edu-python-sdk.git
+[submodule "1/EstructuraDatos/Huffman-Codification/huffman-webpage"]
+	path = 1/EstructuraDatos/Huffman-Codification/huffman-webpage
+	url = https://github.com/0xGeN02/Huffman-Codification.git
