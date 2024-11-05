@@ -9,3 +9,9 @@ At the moment the subject only consists in:
   LaTeX
   
 In the next courses I will be uploading SQL, Solidity, Java, JavaScript and more
+
+Install all submodules:
+
+```sh
+git submodule update --init --recursive
+```
