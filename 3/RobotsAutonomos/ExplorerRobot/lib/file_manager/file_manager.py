@@ -1,5 +1,5 @@
 """
-FileManager
+Módulo para manejar archivos JSON
 """
 import os
 import json
@@ -7,7 +7,7 @@ from datetime import datetime
 
 class FileManager:
     """
-    Clase para manejar archivos
+    Clase para manejar archivos JSON
     """
     @staticmethod
     async def guardar_recorrido(data, explore):
@@ -15,11 +15,25 @@ class FileManager:
         Método para guardar el recorrido en un archivo JSON
         """
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        path = os.path.dirname(os.path.abspath(__file__))
+        # Cambiar la ruta base al directorio raíz del proyecto
+        path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../'))
         directorio = os.path.join(path, 'recorridos')
         os.makedirs(directorio, exist_ok=True)
-        file_path = os.path.join(directorio, f'Lab02_Entorno_{timestamp}.json')
+        file_name = f'Entorno_{timestamp}.json'
+        file_path = os.path.join(directorio, file_name)
         data = {"data": data, "explore": explore}
         with open(file_path, 'w', encoding='utf-8') as file:
             json.dump(data, file, indent=4)
-        return f'{file_path} creado correctamente'
+        return file_name
+
+    @staticmethod
+    async def get_file(name: str):
+        """
+        Método para obtener un archivo JSON
+        """
+        # Cambiar la ruta base al directorio raíz del proyecto
+        path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../'))
+        file_path = os.path.join(path, 'recorridos', name)
+        with open(file_path, 'r', encoding='utf-8') as file:
+            data = json.load(file)
+        return data

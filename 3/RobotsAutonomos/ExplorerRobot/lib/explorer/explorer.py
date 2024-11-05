@@ -3,6 +3,7 @@ ExplorerRobot
 """
 import math
 import random
+import json
 from irobot_edu_sdk.robots import Create3
 from irobot_edu_sdk.music import Note
 from lib.color_note import Color
@@ -21,6 +22,7 @@ class ExplorerRobot(Create3):
         self.data = {
             'name': 'ExplorerRobot',
             'version': '1.0.0',
+            'dev': '0xGeN0',
             'author': 'Hugo, Jaqueline, Carlos, Mateo',
             'description': 'Robot autonomo que navega por un entorno con obstaculos y recuerda el recorrido',
             'status': 'In development',
@@ -198,6 +200,9 @@ class ExplorerRobot(Create3):
                     break
 
     async def recorrer_puntos(self, vueltas: int = 1, cambiar_color: bool = False):
+        """
+        Método para recorrer los puntos almacenados
+        """
         colores = ['CYAN', 'MAGENTA', 'ORANGE', 'VIOLET']
         for i in range(vueltas):
             if i % 2 != 0:
@@ -219,3 +224,13 @@ class ExplorerRobot(Create3):
                     await self.set_color_note('visitado', 1.5)
         await self.set_color_note('end_phase', 1.5)
         return 'Recorrido completo'
+
+    def get_recorrido_json(self):
+        """
+        Método para obtener el recorrido y la data del robot en formato JSON
+        """
+        data = {
+            "data": self.data,
+            "explore": self.explore
+        }
+        return data
