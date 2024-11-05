@@ -1,7 +1,10 @@
+"""
+Proyecto: Robots Autónomos
+"""
 from irobot_edu_sdk.backend.bluetooth import Bluetooth
+from irobot_edu_sdk.robots import event
 from lib.explorer import ExplorerRobot
 from lib.file_manager import FileManager
-from irobot_edu_sdk.robots import event
 
 ROBOT_NAME = "C3_UIEC_Grupo1"
 backend_instance = Bluetooth(ROBOT_NAME)
@@ -26,8 +29,15 @@ async def play(explorer_instance):
 
     print('Recorriendo puntos almacenados')
     await explorer_instance.recorrer_puntos(vueltas=1, cambiar_color=True)
-    archive_name= await explorer_instance.guardar_recorrido()
+
+    print('Creando Archivo JSON con el recorrido')
+    data_recorrido = explorer_instance.get_recorrido_json()
+    archive_name= await FileManager.guardar_recorrido(data_recorrido, explorer_instance.explore)
     print(f'{archive_name} creado')
+
+    print(f'Recorriendo los puntos del archivo {archive_name}')
+    file_data = await FileManager.get_file(archive_name)
+    print(file_data)
     print('Fin de la misión')
 
 explorer.play()
