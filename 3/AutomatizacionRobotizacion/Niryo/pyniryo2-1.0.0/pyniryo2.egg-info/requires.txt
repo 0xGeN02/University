@@ -1,0 +1,11 @@
+numpy
+pytest
+roslibpy
+service_identity
+
+[setup]
+setuptools~=46.0.0
+
+[test]
+coverage
+pytest
