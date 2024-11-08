@@ -27,8 +27,8 @@ async def play(explorer_instance):
     print('Posición final:', await explorer_instance.get_position())
     print('Distancia recorrida:', await explorer_instance.get_distance())
 
-    print('Recorriendo puntos almacenados')
-    await explorer_instance.recorrer_puntos(vueltas=1, cambiar_color=True)
+    #print('Recorriendo puntos almacenados')
+    #await explorer_instance.recorrer_puntos(vueltas=1, cambiar_color=False)
 
     print('Creando Archivo JSON con el recorrido')
     data_recorrido = explorer_instance.get_recorrido_json()
@@ -37,7 +37,7 @@ async def play(explorer_instance):
 
     print(f'Recorriendo los puntos del archivo {archive_name}')
     file_data = await FileManager.get_file(archive_name)
-    print(file_data)
+    await explorer_instance.recorrer_puntos_json(file_data, vueltas=2, cambiar_color=True)
     print('Fin de la misión')
 
 explorer.play()
