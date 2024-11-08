@@ -234,3 +234,44 @@ class ExplorerRobot(Create3):
             "explore": self.explore
         }
         return data
+
+    async def recorrer_puntos_json(self, data: dict, vueltas: int = 1, cambiar_color: bool = False):
+        """
+        Método para recorrer los puntos almacenados en un archivo JSON
+        """
+        colores = ['CYAN', 'MAGENTA', 'ORANGE', 'VIOLET']
+        if 'explore' not in data or 'recorrido' not in data['explore']:
+            raise KeyError("El archivo JSON no contiene la estructura esperada.")
+
+        for i in range(vueltas):
+            if i % 2 != 0:
+                puntos = list(data['explore']['recorrido'].values())
+            else:
+                puntos = list(data['explore']['recorrido'].values())[::-1]
+            print(f'Vuelta {i + 1}: Puntos a recorrer = {[punto["posicion"] for punto in puntos]}')
+            for punto in puntos:
+                posicion = punto['posicion']
+                await self.set_color_note('moverse', 1.5)
+                await self.navigate_to(posicion['x'], posicion['y'], posicion['theta'])
+                await self.wait(1)
+                if cambiar_color:
+                    color = random.choice(colores)
+                    color_rgb = Color.get_color(color)
+                    await self.set_lights_rgb(color_rgb[0], color_rgb[1], color_rgb[2])
+                    await self.play_note(Note.C4, 1.5)
+                else:
+                    await self.set_color_note('visitado', 1.5)
+        await self.set_color_note('end_phase', 1.5)
+        return 'Recorrido completo'
+
+    async def recorrido_con_deteccion(self, data: dict, th: int = 150, speed: int = 10):
+        """
+            Funcion que recorre el recorrido del JSON mientras detecta obstaculos en paralelo
+        """
+        while True:
+            self.set_speed(speed=speed)
+            sensor = (await self.get_ir_proximity()).sensors
+            if sensor[3] > th:
+                self.detectar_obstaculos(th=th)
+
+            self.recorrer_puntos_json(data=data)
