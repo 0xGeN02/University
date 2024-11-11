@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "niryo"
+version = "0.1.0"
+description = ""
+authors = ["0xGeN02 <manuelmateodgl02@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+setuptools = "75.3.0"
+wheel = "*"
+pyniryo2 = { version = "1.0.0", allow-prereleases = true, source = "pypi", extras = ["--no-use-pep517"] }
+
+[build-system]
+requires = ["setuptools>=75.3.0", "wheel"]
+build-backend = "setuptools.build_meta"

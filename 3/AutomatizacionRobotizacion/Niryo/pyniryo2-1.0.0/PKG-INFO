@@ -1,0 +1,68 @@
+Metadata-Version: 2.1
+Name: pyniryo2
+Version: 1.0.0
+Summary: Package to control Niryo Robot "Ned" through TCP
+Home-page: https://github.com/NiryoRobotics/pyniryo2
+Author: Niryo
+Author-email: v.pitre@niryo.com
+Maintainer: Valentin Pitre
+Maintainer-email: v.pitre@niryo.com
+License: GNU 3.0
+Description: pyniryo2
+        =========
+        
+        .. contents:: **Table of Contents**
+            :backlinks: none
+        
+        Installation
+        ------------
+        
+        PyNiryo is distributed on `PyPI <https://pypi.org>`_ as a universal
+        wheel and is available on Linux/macOS and Windows and supports
+        Python 2.7/3.5+
+        
+        .. code-block:: bash
+        
+            $ pip install pyniryo2
+        
+        Documentation
+        -----------------
+        
+        PyNiryo2 allows to write simple script in Python in order to control Ned
+        
+        .. code-block:: python
+        
+            from pyniryo2 import *
+        
+            ned = NiryoRobot("10.10.10.10")
+        
+            ned.arm.calibrate_auto()
+        
+            ned.arm.move_joints([0.2, -0.3, 0.1, 0.0, 0.5, -0.8])
+        
+        To see more examples or learn more about the available functions,
+        full documentation is available at http://docs.niryo.com/dev/pyniryo2
+        
+        
+        License
+        -------
+        
+        PyNiryo2 is distributed under the terms of
+        `GNU General Public License v3.0 <https://choosealicense.com/licenses/gpl-3.0>`_
+        
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Topic :: Education
+Provides-Extra: setup
+Provides-Extra: test

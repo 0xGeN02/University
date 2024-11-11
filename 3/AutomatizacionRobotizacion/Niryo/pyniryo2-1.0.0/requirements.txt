@@ -1,0 +1,4 @@
+numpy
+roslibpy
+service_identity
+pytest
