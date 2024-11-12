@@ -112,6 +112,7 @@ class ExplorerRobot(Create3):
     async def inspeccion(self, th: int = 150):
         """
         Método para inspeccionar los obstáculos
+        @exit code: 200->seguir 400->parar
         """
         exit_code = None
         await self.set_color_note('inspeccion', 1.5)
@@ -193,6 +194,7 @@ class ExplorerRobot(Create3):
                     await self.set_color_note('moverse', 1.5)
                 elif code == 400:
                     await self.set_speed(0)
+                    await self.append_parada()
                     await self.set_color_note('end_phase', 1.5)
                     break
                 else:
@@ -223,7 +225,7 @@ class ExplorerRobot(Create3):
                 else:
                     await self.set_color_note('visitado', 1.5)
         await self.set_color_note('end_phase', 1.5)
-        return 'Recorrido completo'
+        return self.explore['recorrido']
 
     def get_recorrido_json(self):
         """
@@ -240,14 +242,16 @@ class ExplorerRobot(Create3):
         Método para recorrer los puntos almacenados en un archivo JSON
         """
         colores = ['CYAN', 'MAGENTA', 'ORANGE', 'VIOLET']
+        paradas = data['explore']['recorrido'].values()
+
         if 'explore' not in data or 'recorrido' not in data['explore']:
             raise KeyError("El archivo JSON no contiene la estructura esperada.")
 
         for i in range(vueltas):
             if i % 2 != 0:
-                puntos = list(data['explore']['recorrido'].values())
+                puntos = list(paradas)
             else:
-                puntos = list(data['explore']['recorrido'].values())[::-1]
+                puntos = list(paradas)[::-1]
             print(f'Vuelta {i + 1}: Puntos a recorrer = {[punto["posicion"] for punto in puntos]}')
             for punto in puntos:
                 posicion = punto['posicion']
@@ -264,14 +268,23 @@ class ExplorerRobot(Create3):
         await self.set_color_note('end_phase', 1.5)
         return 'Recorrido completo'
 
-    async def recorrido_con_deteccion(self, data: dict, th: int = 150, speed: int = 10):
+    async def eliminar_paradas(self,):
         """
-            Funcion que recorre el recorrido del JSON mientras detecta obstaculos en paralelo
+        Método para eliminar las paradas
+        """
+        #Elimina todas las pradas
+        self.explore['recorrido'] = {}
+
+    async def recorrer_con_inspeccion(self, th: int = 150, data: dict = None):
+        """
+        Método para recorrer lños puntos del JSON mientras esta el sensor revisando que no haya obstaculos, una vez detecta el obstaculo ha de actualizar el JSON y seguir con la inspeccion hasta que finalice
         """
         while True:
-            self.set_speed(speed=speed)
             sensor = (await self.get_ir_proximity()).sensors
-            if sensor[3] > th:
-                self.detectar_obstaculos(th=th)
-
-            self.recorrer_puntos_json(data=data)
+            #mientras el sensor frontal no detecte nada ha de recorrer los puntos del JSON
+            if sensor[3]<th:
+                await self.recorrer_puntos_json(data, vueltas=1, cambiar_color=True)
+            #si el sensor frontal detecta algo ha de inspeccionar y actualizar los datos del self.explore
+            self.eliminar_paradas()
+            self.inspeccion()
+        
