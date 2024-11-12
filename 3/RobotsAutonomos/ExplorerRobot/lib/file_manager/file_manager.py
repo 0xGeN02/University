@@ -10,7 +10,7 @@ class FileManager:
     Clase para manejar archivos JSON
     """
     @staticmethod
-    async def guardar_recorrido(data, explore):
+    async def guardar_recorrido(data):
         """
         Método para guardar el recorrido en un archivo JSON
         """
@@ -21,7 +21,7 @@ class FileManager:
         os.makedirs(directorio, exist_ok=True)
         file_name = f'Entorno_{timestamp}.json'
         file_path = os.path.join(directorio, file_name)
-        data = {"data": data, "explore": explore}
+
         with open(file_path, 'w', encoding='utf-8') as file:
             json.dump(data, file, indent=4)
         return file_name

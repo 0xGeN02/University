@@ -32,7 +32,7 @@ async def play(explorer_instance):
 
     print('Creando Archivo JSON con el recorrido')
     data_recorrido = explorer_instance.get_recorrido_json()
-    archive_name= await FileManager.guardar_recorrido(data_recorrido, explorer_instance.explore)
+    archive_name= await FileManager.guardar_recorrido(data_recorrido)
     print(f'{archive_name} creado')
 
     print(f'Recorriendo los puntos del archivo {archive_name}')
