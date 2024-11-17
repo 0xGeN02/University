@@ -25,13 +25,18 @@ def main():
     print("Robot conectado con éxito.")
     print("")
 
-    print(f'El punto de inicio es: {robot.arm.get_pose()}')
     # Calcular el centro del marco
     paper_center = paper.get_center()
     print(f"Centro del papel: {paper_center}")
     paper_corners = paper.get_corners()
     print(f'Esquinas del papel : {paper_corners}')
+    
+    #Movemos el robot al punto de inicio
+    initial_point = config.INITIAL_COORDENATE
+    robot.arm.move_pose(initial_point)
+    print(f'El punto de inicio es: {robot.arm.get_pose()}')
 
+    #Obtenemos la posicion del robot
     # Dibujar un cuadrado
     robot.draw_square(paper_center, 0.1)
 
