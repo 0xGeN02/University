@@ -1,0 +1,24 @@
+"""
+constants/config.py
+"""
+
+# Conectividad
+ETHERNET_STATIC_IP: str = "169.254.200.200"
+IP_ADDRESS: str = "127.0.0.1"
+PORT = 9090
+HOTSPOT_ADDRESS: str = "10.10.10.10"
+HOTSPOT_NAME: str = "ea-40f-1a0"
+HOTSPOT_PASSWORD: str = "niryorobot"
+
+# Dimensiones del papel DIN A3
+DIN_A3_WIDTH = 0.297
+DIN_A3_HEIGHT = 0.420
+
+# Coordenadas iniciales del robot
+ROBOT_X = 0.119
+ROBOT_Y = 0.204
+ROBOT_Z = 0.063
+ROBOT_ROLL = -0.011
+ROBOT_PITCH = -0.02
+ROBOT_YAW = 1.773
+INITIAL_COORDENATE = [ROBOT_X, ROBOT_Y, ROBOT_Z, ROBOT_ROLL, ROBOT_PITCH, ROBOT_YAW]
