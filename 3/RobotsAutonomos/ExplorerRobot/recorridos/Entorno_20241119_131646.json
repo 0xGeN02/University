@@ -1,0 +1,87 @@
+{
+    "data": {
+        "name": "ExplorerRobot",
+        "version": "1.0.0",
+        "dev": "0xGeN0",
+        "author": "Hugo, Jaqueline, Carlos, Mateo",
+        "description": "Robot autonomo que navega por un entorno con obstaculos y recuerda el recorrido",
+        "status": "In development",
+        "license": "MIT"
+    },
+    "explore": {
+        "recorrido": {
+            "0": {
+                "posicion": {
+                    "x": 0,
+                    "y": 0,
+                    "theta": 90
+                },
+                "matriz": [
+                    [
+                        "Undefined",
+                        1,
+                        "Undefined"
+                    ],
+                    [
+                        0,
+                        "ExplorerRobot",
+                        "Not explored"
+                    ],
+                    [
+                        "Undefined",
+                        0,
+                        "Undefined"
+                    ]
+                ]
+            },
+            "1": {
+                "posicion": {
+                    "x": -0.5,
+                    "y": 50.7,
+                    "theta": 180.4
+                },
+                "matriz": [
+                    [
+                        "Undefined",
+                        1,
+                        "Undefined"
+                    ],
+                    [
+                        1,
+                        "ExplorerRobot",
+                        1
+                    ],
+                    [
+                        "Undefined",
+                        0,
+                        "Undefined"
+                    ]
+                ]
+            },
+            "2": {
+                "posicion": {
+                    "x": -54.6,
+                    "y": 48.2,
+                    "theta": 90.2
+                },
+                "matriz": [
+                    [
+                        "Undefined",
+                        "Undefined",
+                        "Undefined"
+                    ],
+                    [
+                        "Undefined",
+                        "ExplorerRobot",
+                        "Undefined"
+                    ],
+                    [
+                        "Undefined",
+                        0,
+                        "Undefined"
+                    ]
+                ]
+            }
+        }
+    }
+}
