@@ -1,0 +1,111 @@
+{
+    "data": {
+        "name": "ExplorerRobot",
+        "version": "1.0.0",
+        "dev": "0xGeN0",
+        "author": "Hugo, Jaqueline, Carlos, Mateo",
+        "description": "Robot autonomo que navega por un entorno con obstaculos y recuerda el recorrido",
+        "status": "In development",
+        "license": "MIT"
+    },
+    "explore": {
+        "recorrido": {
+            "0": {
+                "posicion": {
+                    "x": 0,
+                    "y": 0,
+                    "theta": 90
+                },
+                "matriz": [
+                    [
+                        "Undefined",
+                        1,
+                        "Undefined"
+                    ],
+                    [
+                        "Not explored",
+                        "ExplorerRobot",
+                        0
+                    ],
+                    [
+                        "Undefined",
+                        0,
+                        "Undefined"
+                    ]
+                ]
+            },
+            "1": {
+                "posicion": {
+                    "x": -1.4,
+                    "y": 68.7,
+                    "theta": 359.9
+                },
+                "matriz": [
+                    [
+                        "Undefined",
+                        1,
+                        "Undefined"
+                    ],
+                    [
+                        "Not explored",
+                        "ExplorerRobot",
+                        0
+                    ],
+                    [
+                        "Undefined",
+                        0,
+                        "Undefined"
+                    ]
+                ]
+            },
+            "2": {
+                "posicion": {
+                    "x": 53.2,
+                    "y": 71.5,
+                    "theta": 269.3
+                },
+                "matriz": [
+                    [
+                        "Undefined",
+                        1,
+                        "Undefined"
+                    ],
+                    [
+                        1,
+                        "ExplorerRobot",
+                        1
+                    ],
+                    [
+                        "Undefined",
+                        0,
+                        "Undefined"
+                    ]
+                ]
+            },
+            "3": {
+                "posicion": {
+                    "x": 53.5,
+                    "y": 10.1,
+                    "theta": 0.7
+                },
+                "matriz": [
+                    [
+                        "Undefined",
+                        "Undefined",
+                        "Undefined"
+                    ],
+                    [
+                        "Undefined",
+                        "ExplorerRobot",
+                        "Undefined"
+                    ],
+                    [
+                        "Undefined",
+                        0,
+                        "Undefined"
+                    ]
+                ]
+            }
+        }
+    }
+}
