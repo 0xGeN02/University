@@ -13,3 +13,15 @@
 ```
 
 Si se compila, el setup esta correcto.
+
+## Inicializacion
+
+```zsh
+    chmod +x sart.zsh
+```
+
+```zsh
+    ./start.zsh
+```
+
+Con estos 2 comandos iniciamos el proyecto
