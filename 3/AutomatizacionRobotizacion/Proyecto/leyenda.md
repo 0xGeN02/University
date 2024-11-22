@@ -1,16 +1,15 @@
-[Definición Lenguaje]
+# Proyecto Automatizacion
 
--E1:
-  * D:  Disponible
-  * TA: Trabajando Estación A
-  * TB: Trabajando Estacion B
-  * TF: Trabajo Finalizado (pieza en estacion)
-	
--E2:
-  * D: Disponible 
-  * T: Trabajando
-  * F: Finalizado (pieza en estacion)
+[Instalación Platformio]
 
--AE:
-  * D: Disponible
-  
+```zsh
+    pip install platformio
+```
+
+* Tras instalar, hay que comprobar el c_cpp_properties.json mediante un:
+
+```zsh
+    pio run -v
+```
+
+Si se compila, el setup esta correcto.

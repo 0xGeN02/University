@@ -1,0 +1,62 @@
+//
+// !!! WARNING !!! AUTO-GENERATED FILE!
+// PLEASE DO NOT MODIFY IT AND USE "platformio.ini":
+// https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags
+//
+{
+    "configurations": [
+        {
+            "name": "PlatformIO",
+            "includePath": [
+                "/home/xgen0/xgen0/University/3/AutomatizacionRobotizacion/Proyecto/Arduino/include",
+                "/home/xgen0/xgen0/University/3/AutomatizacionRobotizacion/Proyecto/Arduino/src",
+                "/home/xgen0/xgen0/University/3/AutomatizacionRobotizacion/Proyecto/Arduino/.pio/libdeps/master/master",
+                "/home/xgen0/.platformio/packages/framework-arduino-avr/cores/arduino",
+                "/home/xgen0/.platformio/packages/framework-arduino-avr/variants/standard",
+                "/home/xgen0/xgen0/University/3/AutomatizacionRobotizacion/Proyecto/Arduino/lib/master",
+                "/home/xgen0/xgen0/University/3/AutomatizacionRobotizacion/Proyecto/Arduino/lib/stations",
+                "/home/xgen0/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                "/home/xgen0/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                "/home/xgen0/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                "/home/xgen0/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+                "/home/xgen0/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                ""
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "path": [
+                    "/home/xgen0/xgen0/University/3/AutomatizacionRobotizacion/Proyecto/Arduino/include",
+                    "/home/xgen0/xgen0/University/3/AutomatizacionRobotizacion/Proyecto/Arduino/src",
+                    "/home/xgen0/xgen0/University/3/AutomatizacionRobotizacion/Proyecto/Arduino/.pio/libdeps/master/master",
+                    "/home/xgen0/.platformio/packages/framework-arduino-avr/cores/arduino",
+                    "/home/xgen0/.platformio/packages/framework-arduino-avr/variants/standard",
+                    "/home/xgen0/xgen0/University/3/AutomatizacionRobotizacion/Proyecto/Arduino/lib/master",
+                    "/home/xgen0/xgen0/University/3/AutomatizacionRobotizacion/Proyecto/Arduino/lib/stations",
+                    "/home/xgen0/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                    "/home/xgen0/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                    "/home/xgen0/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                    "/home/xgen0/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+                    "/home/xgen0/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                    ""
+                ]
+            },
+            "defines": [
+                "PLATFORMIO=60116",
+                "ARDUINO_AVR_UNO",
+                "F_CPU=16000000L",
+                "ARDUINO_ARCH_AVR",
+                "ARDUINO=10808",
+                "__AVR_ATmega328P__",
+                ""
+            ],
+            "cStandard": "gnu11",
+            "cppStandard": "gnu++11",
+            "compilerPath": "/home/xgen0/.platformio/packages/toolchain-atmelavr/bin/avr-gcc",
+            "compilerArgs": [
+                "-mmcu=atmega328p",
+                ""
+            ]
+        }
+    ],
+    "version": 4
+}
