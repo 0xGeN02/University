@@ -1,5 +1,4 @@
 #include <Arduino.h>
-#include "station2.h"
 
 void setup() {
     // Initialize hardware serial
@@ -7,20 +6,17 @@ void setup() {
     
     Serial.println("Station 2 running...");
     
-    setupStation2();
 }
 
 void loop() {
     // Listen for number from master
     if (Serial.available()) {
-        String numberStr = Serial.readStringUntil('\n');
-        int number = numberStr.toInt();
+        int number = Serial.parseInt();
         int result = number * number;
         
         // Send result back to master
-        Serial.print("Calculating: ");
+        Serial.print("Calculando: ");
         Serial.println(result);
     }
     
-    loopStation2();
 }
