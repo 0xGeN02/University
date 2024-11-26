@@ -1,0 +1,48 @@
+Rotación 0 grados:
+
+1110010
+0000110
+1111110
+0010011
+1110010
+0000010
+1010110
+
+Coincide con el marcador ArUco ID 1
+
+Rotación 90 grados:
+
+0001000
+1111111
+0110001
+0010000
+1011101
+1010100
+1010101
+
+No coincide con ningún marcador ArUco
+
+Rotación 180 grados:
+
+0110101
+0100000
+0100111
+1100100
+0111111
+0110000
+0100111
+
+No coincide con ningún marcador ArUco
+
+Rotación 270 grados:
+
+1010101
+0010101
+1011101
+0000100
+1000110
+1111111
+0001000
+
+No coincide con ningún marcador ArUco
+
