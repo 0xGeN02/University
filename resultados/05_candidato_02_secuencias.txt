@@ -1,0 +1,48 @@
+Rotación 0 grados:
+
+1111111
+1111111
+1111111
+1111111
+1111111
+1111111
+1111111
+
+No coincide con ningún marcador ArUco
+
+Rotación 90 grados:
+
+1111111
+1111111
+1111111
+1111111
+1111111
+1111111
+1111111
+
+No coincide con ningún marcador ArUco
+
+Rotación 180 grados:
+
+1111111
+1111111
+1111111
+1111111
+1111111
+1111111
+1111111
+
+No coincide con ningún marcador ArUco
+
+Rotación 270 grados:
+
+1111111
+1111111
+1111111
+1111111
+1111111
+1111111
+1111111
+
+No coincide con ningún marcador ArUco
+
