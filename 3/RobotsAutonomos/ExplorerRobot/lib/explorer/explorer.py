@@ -3,7 +3,7 @@ ExplorerRobot
 """
 import math
 import random
-import json
+
 from irobot_edu_sdk.robots import Create3
 from irobot_edu_sdk.music import Note
 from lib.color_note import Color
@@ -247,6 +247,8 @@ class ExplorerRobot(Create3):
         if 'explore' not in data or 'recorrido' not in data['explore']:
             raise KeyError("El archivo JSON no contiene la estructura esperada.")
 
+        current_position = None
+
         for i in range(vueltas):
             if i % 2 != 0:
                 puntos = list(paradas)
@@ -258,6 +260,7 @@ class ExplorerRobot(Create3):
                 await self.set_color_note('moverse', 1.5)
                 await self.navigate_to(posicion['x'], posicion['y'], posicion['theta'])
                 await self.wait(1)
+                current_position = posicion
                 if cambiar_color:
                     color = random.choice(colores)
                     color_rgb = Color.get_color(color)
@@ -266,25 +269,4 @@ class ExplorerRobot(Create3):
                 else:
                     await self.set_color_note('visitado', 1.5)
         await self.set_color_note('end_phase', 1.5)
-        return 'Recorrido completo'
-
-    async def eliminar_paradas(self,):
-        """
-        Método para eliminar las paradas
-        """
-        #Elimina todas las pradas
-        self.explore['recorrido'] = {}
-
-    async def recorrer_con_inspeccion(self, th: int = 150, data: dict = None):
-        """
-        Método para recorrer lños puntos del JSON mientras esta el sensor revisando que no haya obstaculos, una vez detecta el obstaculo ha de actualizar el JSON y seguir con la inspeccion hasta que finalice
-        """
-        while True:
-            sensor = (await self.get_ir_proximity()).sensors
-            #mientras el sensor frontal no detecte nada ha de recorrer los puntos del JSON
-            if sensor[3]<th:
-                await self.recorrer_puntos_json(data, vueltas=1, cambiar_color=True)
-            #si el sensor frontal detecta algo ha de inspeccionar y actualizar los datos del self.explore
-            self.eliminar_paradas()
-            self.inspeccion()
-        
+        return current_position

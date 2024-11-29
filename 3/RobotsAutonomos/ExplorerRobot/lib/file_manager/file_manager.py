@@ -10,7 +10,7 @@ class FileManager:
     Clase para manejar archivos JSON
     """
     @staticmethod
-    async def guardar_recorrido(data):
+    async def guardar_recorrido(data) -> str:
         """
         Método para guardar el recorrido en un archivo JSON
         """
@@ -27,7 +27,7 @@ class FileManager:
         return file_name
 
     @staticmethod
-    async def get_file(name: str):
+    async def get_file(name: str) -> dict:
         """
         Método para obtener un archivo JSON
         """
