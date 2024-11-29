@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "gestion-salas"
+version = "0.1.0"
+description = "Gestor de salas de reunión"
+authors = ["0xGeN02 <manuelmateodgl02@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+psycopg2-binary = "^2.9.10"
+fastapi = "^0.115.5"
+uvicorn = {extras = ["standard"], version = "^0.32.1"}
+sqlalchemy = "^2.0.36"
+python-dotenv = "^1.0.1"
+asyncpg = "^0.30.0"
+pydantic-settings = "^2.6.1"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.3"
+pytest-asyncio = "^0.24.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
