@@ -1,5 +1,4 @@
-# main_obj_phong_texturas.py
-
+import os
 from modelo_phong_texturas import Modelo
 from utilidades import *
 from usuario import *
@@ -8,16 +7,24 @@ from configuracion import *
 from transformaciones import transformar
 from luces import configurar_luces
 from texturas import cargar_textura  # Importa cargar_textura para gestionar texturas
+from user_action_legend import mostrar_leyenda  # Importa la leyenda
+
+# Definir las rutas base
+base_dir = os.path.dirname(__file__)
+base_modelos = os.path.join(base_dir, "modelos")
+base_texturas = os.path.join(base_dir, "texturas")
 
 # Inicialización de la cámara y el modelo 3D
 camara = Camara()
-cubos = Modelo("modelos/cubo.obj", draw_type=GL_TRIANGLES)
-cilindros = Modelo("modelos/cilindro.obj", draw_type=GL_TRIANGLES)
-conos = Modelo("modelos/cono.obj", draw_type=GL_TRIANGLES)
-plataforma = Modelo("modelos/cilindro.obj", draw_type=GL_TRIANGLES)
+cubos = Modelo(os.path.join(base_modelos, "cubo.obj"), draw_type=GL_TRIANGLES)
+cilindros = Modelo(os.path.join(base_modelos, "cilindro.obj"), draw_type=GL_TRIANGLES)
+conos = Modelo(os.path.join(base_modelos, "cono.obj"), draw_type=GL_TRIANGLES)
+plataforma = Modelo(os.path.join(base_modelos, "cilindro.obj"), draw_type=GL_TRIANGLES)
+m4a1 = Modelo(os.path.join(base_modelos, "M4A1.obj"), draw_type=GL_TRIANGLES)  # Añade esta línea
 GIRAR = 0
 
-
+# Muestra la leyenda de acciones
+mostrar_leyenda()
 
 # Inicialización de la escena
 def inicializar_escena():
@@ -46,13 +53,13 @@ def inicializar_escena():
 screen = inicializar_escena()  # Crea la ventana y configura el contexto OpenGL
 
 # Ahora que el contexto OpenGL está activo, carga la textura
-textura_id_plataforma = cargar_textura("texturas/marmol.png")  # Ajusta la ruta al archivo de textura
+textura_id_plataforma = cargar_textura(os.path.join(base_texturas, "marmol.png"))  # Ajusta la ruta al archivo de textura
 
-textura_id_1 = cargar_textura("texturas/oxido.png")
-textura_id_2 = cargar_textura("texturas/corteza.png")
-textura_id_3 = cargar_textura("texturas/hielo.png")
+textura_id_1 = cargar_textura(os.path.join(base_texturas, "oxido.png"))
+textura_id_2 = cargar_textura(os.path.join(base_texturas, "corteza.png"))
+textura_id_3 = cargar_textura(os.path.join(base_texturas, "hielo.png"))
 
-textura_id_escopeta = cargar_textura("texturas/madera.png")
+textura_id_escopeta = cargar_textura(os.path.join(base_texturas, "madera.png"))
 
 clock = pygame.time.Clock()
 ejecutando = True
@@ -112,13 +119,9 @@ def renderizar():
     cubos.dibujar(textura_id = textura_actual, t_x=1.4-elegida+200, t_y=2, t_z=0,
                    angulo=0, eje_x=0, eje_y=0, eje_z=0, sx=3, sy=.5, sz=.5)
 
-
-
     #PLATAFORMA
     plataforma.dibujar(textura_id = textura_id_plataforma, t_x=-0, t_y=-1, t_z=0,
                    angulo=GIRAR, eje_x=0, eje_y=1, eje_z=0, sx=7, sy=0.3, sz=7)
-
-
 
 # Bucle principal de la aplicación
 while ejecutando:

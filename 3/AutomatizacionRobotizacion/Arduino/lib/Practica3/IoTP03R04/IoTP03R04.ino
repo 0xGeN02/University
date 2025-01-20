@@ -1,111 +1,177 @@
-// Asignatura: TAyRE
-// Programa: IoTP03E04.ino con LCD integrado
-// Placa Arduino Uno
-// Potenciometro, Secuencia de Leds, Estado y Pantalla LCD
-// Programa de uso académico
-// Realizado por: xGeN02
-// Fecha: 18/10/2024
+#include <Arduino.h>
 
-// BIBLIOTECAS
-#include <LiquidCrystal.h>  // Biblioteca para la pantalla LCD
+// Pin definitions
+enum Pins {
+  SALIDA_E01 = 2,
+  SALIDA_E02 = 3,
+  ROBOT_1 = 4,
+  ROBOT_2 = 5,
+  ROBOT_3 = 6,
+  E01_1 = 7,
+  E01_2 = 8,
+  E02_1 = 9,
+  E02_2 = 10,
+  ROBOT = 11
+};
 
-// DEFINICIÓN DE VARIABLES Y CONSTANTES GLOBALES  
-const int Total_Pines = 5;  // Cantidad de LEDs conectados a pines digitales consecutivos
-const int Pin_Analog = A0;  // Pin analógico del potenciómetro
-int Umbral[Total_Pines] = {170, 340, 510, 680, 850}; // Umbrales para los eventos de estado
-int Pin_I = 6;  // Inicio de conexiones de LEDs
-int Estado = 0;  // Estado inicial del sistema
-int EA = 0;  // Última lectura del pin analógico
+// Station states
+const uint8_t STATION_EMPTY = 0b00;
+const uint8_t STATION_BUSY = 0b01;
+const uint8_t STATION_DONE = 0b10;
 
-// LCD conectado a los pines digitales 12, 11, 5, 4, 3, 2
-LiquidCrystal LCD1(12, 11, 5, 4, 3, 2);
+// Robot commands
+enum RobotCommand {
+  ROBOT_IDLE = 0,
+  ROBOT_TO_STATION1 = 1,
+  ROBOT_TO_STATION2 = 2,
+  ROBOT_TRANSFER = 3
+};
 
-// PROTOTIPOS DE FUNCIONES
-void Inicializar_Pines(int, int);       // Definición de pines de salida
-int F_Transision_Estados(int, int, int[]); // Función para la transición de estados
-void Encender(int);                     // Enciende LEDs según el estado
-void Salida_Serial(int, int);           // Muestra el estado en el puerto Serial
-void Mostrar_LCD(int, int);             // Muestra el estado en la pantalla LCD
+class Estado {
+private:
+  uint8_t station1_state : 2;
+  uint8_t station2_state : 2;
+  uint8_t robot_state : 1;
 
-// BLOQUE DE INICIALIZACIÓN
-void setup() 
-{
-  Inicializar_Pines(Pin_I, Total_Pines); // Inicializa los pines para los LEDs
-  Serial.begin(9600);                    // Inicialización del puerto Serial
-  LCD1.begin(16, 2);                     // Inicialización del LCD (16x2)
+public:
+  Estado() : station1_state(0), station2_state(0), robot_state(0) {}
   
-  Salida_Serial(Estado, 0);              // Muestra el estado inicial
-  Mostrar_LCD(Estado, 0);                // Muestra en la pantalla LCD el estado inicial
-  Encender(0);                           // Enciende el LED inicial
-}
-
-// BLOQUE DE EJECUCIÓN
-void loop() 
-{
-  int Evento = analogRead(Pin_Analog);   // Lee el valor del potenciómetro
-  Estado = F_Transision_Estados(Estado, Evento, Umbral); // Transición de estados según la entrada analógica
+  void setStation1(uint8_t state) { station1_state = state & 0b11; }
+  void setStation2(uint8_t state) { station2_state = state & 0b11; }
+  void setRobot(bool state) { robot_state = state; }
   
-  if (EA != Evento)                      // Si el valor de la entrada cambia
-  {
-    Encender(Estado);                    // Actualiza los LEDs según el estado
-    Salida_Serial(Estado, Evento);       // Muestra el estado en el puerto Serial
-    Mostrar_LCD(Estado, Evento);         // Muestra el estado en la pantalla LCD
-    EA = Evento;                         // Actualiza el valor de la última lectura
+  uint8_t getStation1() const { return station1_state; }
+  uint8_t getStation2() const { return station2_state; }
+  bool getRobot() const { return robot_state; }
+  
+  bool hasChanged(const Estado& other) const {
+    return station1_state != other.station1_state ||
+           station2_state != other.station2_state ||
+           robot_state != other.robot_state;
   }
+};
+
+class StateMachine {
+private:
+  char current_state;
+  char previous_state;
+  Estado current_estado;
+  Estado previous_estado;
+
+  void readInputs() {
+    uint8_t s1_state = (digitalRead(Pins::E01_2) << 1) | digitalRead(Pins::E01_1);
+    uint8_t s2_state = (digitalRead(Pins::E02_2) << 1) | digitalRead(Pins::E02_1);
+    
+    previous_estado = current_estado;
+    current_estado.setStation1(s1_state);
+    current_estado.setStation2(s2_state);
+    current_estado.setRobot(digitalRead(Pins::ROBOT));
+  }
+
+  void sendRobotCommand(RobotCommand cmd) {
+    digitalWrite(Pins::ROBOT_1, cmd & 0b001);
+    digitalWrite(Pins::ROBOT_2, cmd & 0b010);
+    digitalWrite(Pins::ROBOT_3, cmd & 0b100);
+  }
+
+  void updateOutputs() {
+    switch (current_state) {
+      case '0':
+        digitalWrite(Pins::SALIDA_E01, LOW);
+        digitalWrite(Pins::SALIDA_E02, LOW);
+        break;
+      case '1':
+        digitalWrite(Pins::SALIDA_E01, HIGH);
+        digitalWrite(Pins::SALIDA_E02, LOW);
+        break;
+      case '2':
+        digitalWrite(Pins::SALIDA_E01, LOW);
+        digitalWrite(Pins::SALIDA_E02, HIGH);
+        break;
+      case '3':
+        digitalWrite(Pins::SALIDA_E01, HIGH);
+        digitalWrite(Pins::SALIDA_E02, HIGH);
+        break;
+    }
+
+    if (current_estado.hasChanged(previous_estado)) {
+      handleStateChange();
+    }
+  }
+
+  void handleStateChange() {
+    switch (current_state) {
+      case '1':
+        if (previous_state == '0') {
+          sendRobotCommand(ROBOT_TO_STATION1);
+        }
+        break;
+      case '2':
+        if (previous_state == '0') {
+          sendRobotCommand(ROBOT_TO_STATION2);
+        }
+        break;
+      case '3':
+        if (previous_state == '2') {
+          sendRobotCommand(ROBOT_TRANSFER);
+        }
+        break;
+      default:
+        sendRobotCommand(ROBOT_IDLE);
+        break;
+    }
+  }
+
+  char calculateNextState() {
+    switch (current_state) {
+      case '0':
+        if (current_estado.getStation1() == STATION_EMPTY) return '1';
+        if (current_estado.getStation2() == STATION_EMPTY) return '2';
+        if (current_estado.getStation2() == STATION_BUSY) return '3';
+        break;
+      case '1':
+      case '2':
+        if (current_estado.getRobot()) return '0';
+        break;
+      case '3':
+        if (current_estado.getStation1() == STATION_DONE) return '4';
+        break;
+    }
+    return current_state;
+  }
+
+public:
+  StateMachine() : current_state('0'), previous_state('0') {}
+
+  void init() {
+    pinMode(Pins::SALIDA_E01, OUTPUT);
+    pinMode(Pins::SALIDA_E02, OUTPUT);
+    pinMode(Pins::ROBOT_1, OUTPUT);
+    pinMode(Pins::ROBOT_2, OUTPUT);
+    pinMode(Pins::ROBOT_3, OUTPUT);
+    pinMode(Pins::E01_1, INPUT);
+    pinMode(Pins::E01_2, INPUT);
+    pinMode(Pins::E02_1, INPUT);
+    pinMode(Pins::E02_2, INPUT);
+    pinMode(Pins::ROBOT, INPUT);
+  }
+
+  void update() {
+    previous_state = current_state;
+    readInputs();
+    current_state = calculateNextState();
+    updateOutputs();
+  }
+};
+
+StateMachine stateMachine;
+
+void setup() {
+  stateMachine.init();
+  Serial.begin(9600);
+  Serial.println("Sistema iniciado. Esperando entradas...");
 }
 
-// DECLARACIONES DE FUNCIONES
-
-// Función para inicializar los pines del Arduino
-void Inicializar_Pines(int P_I, int T)
-{
-  for (int i = 0; i <= (T - 1); i++)
-  {
-    pinMode((i + P_I), OUTPUT); // Configura los pines de los LEDs como salida
-  }
-}
-
-// Función para gestionar la transición de estados
-int F_Transision_Estados(int Edo, int Evento, int u[])
-{
-  int k = 0;
-  while ((k <= Total_Pines - 1) && (u[k] < Evento))
-  {
-    k = k + 1;
-  }
-  return k;
-}
-
-// Función para encender y apagar los LEDs según el estado
-void Encender(int a)
-{
-  for (int k = 0; k < a; k++)
-  {
-    digitalWrite(k + Pin_I, HIGH); // Enciende los LEDs hasta el estado actual
-  }
-  for (int k = a; k <= Total_Pines; k++)
-  {
-    digitalWrite(k + Pin_I, LOW);  // Apaga los LEDs por encima del estado actual
-  }
-}
-
-// Función para mostrar el estado y la entrada en el puerto Serial
-void Salida_Serial(int E, int ev)
-{
-  Serial.println("-----------------------------------");
-  Serial.print("    ESTADO : "); Serial.print(E);
-  Serial.print("    ENTRADA : "); Serial.println(ev);
-  Serial.println("-----------------------------------");
-}
-
-// Función para mostrar el estado y la entrada en la pantalla LCD
-void Mostrar_LCD(int E, int ev)
-{
-  LCD1.clear();                    // Limpia la pantalla
-  LCD1.setCursor(0, 0);            // Posiciona el cursor en la primera línea
-  LCD1.print("Estado: ");           // Muestra el texto "Estado: "
-  LCD1.print(E);                    // Muestra el estado actual
-  LCD1.setCursor(0, 1);             // Posiciona el cursor en la segunda línea
-  LCD1.print("Entrada: ");          // Muestra el texto "Entrada: "
-  LCD1.print(ev);                   // Muestra el valor de la entrada analógica
+void loop() {
+  stateMachine.update();
 }
