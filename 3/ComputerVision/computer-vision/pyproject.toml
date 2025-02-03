@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "computer-vision"
+version = "0.1.0"
+description = ""
+authors = ["0xGeN02 <manuelmateodgl02@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+opencv-contrib-python = "^4.11.0.86"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
