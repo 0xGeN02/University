@@ -1,17 +1,15 @@
 # University
 
-This is my repository where I am going to update all my work at my Systems Engineer Bachelor Degree
+This is my repository where I am going to update all my work done at my Smart Systems Engineering at [UIE][UIE]
 
-At the moment the subject only consists in:
-  Python
-  C
-  C++
-  LaTeX
-  
-In the next courses I will be uploading SQL, Solidity, Java, JavaScript and more
+## Structure
 
-Install all submodules:
+The repo is structured as follows:
+
+  Year/Subject/Session/*
 
 ```sh
 git submodule update --init --recursive
 ```
+
+[UIE]: https://uie.edu
