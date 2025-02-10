@@ -1,0 +1,6 @@
+# Readme File For Testing Functions
+
+I Love Node.Js.
+I Love Solidity.
+I Love Solidity
+I Love Solidity
