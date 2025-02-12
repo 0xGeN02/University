@@ -1,0 +1,75 @@
+\documentclass[conference]{IEEEtran}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{array}
+\title{Understanding Underfitting and Overfitting in Machine Learning}
+\author{Manuel Mateo Delgado-Gambino López}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Machine learning models must generalize well to unseen data. However, two common issues can hinder this ability: underfitting and overfitting. This paper explores these phenomena, their causes, consequences, and methods to mitigate them, ensuring optimal model performance.
+\end{abstract}
+
+\section{Introduction}
+Machine learning aims to create models that can generalize from training data to real-world scenarios. However, achieving a balance between model complexity and predictive accuracy is challenging. Two major pitfalls in this process are \textbf{underfitting} and \textbf{overfitting}. These problems significantly affect model performance and must be addressed through careful model selection, regularization techniques, and appropriate data handling.
+
+\section{Underfitting}
+Underfitting occurs when a model is too simple to capture underlying patterns in the data. This typically results from insufficient model complexity, inadequate training, or excessive regularization.
+
+\subsection{Causes of Underfitting}
+\begin{itemize}
+    \item Using a model that is too simplistic (e.g., linear regression for non-linear data).
+    \item Insufficient training, leading to poor convergence.
+    \item Excessive use of regularization, restricting the model's flexibility.
+    \item Lack of relevant features in the dataset.
+\end{itemize}
+
+\subsection{Consequences of Underfitting}
+\begin{itemize}
+    \item Poor training and test performance due to failure to capture patterns.
+    \item High bias, as the model makes strong assumptions about data structure.
+    \item Difficulty in distinguishing between different classes or predicting accurate values.
+\end{itemize}
+
+\subsection{Solutions to Underfitting}
+\begin{itemize}
+    \item Increasing model complexity (e.g., adding more layers in neural networks).
+    \item Reducing regularization constraints.
+    \item Ensuring adequate training on sufficient data.
+    \item Engineering relevant features to better represent the problem.
+\end{itemize}
+
+\section{Overfitting}
+Overfitting occurs when a model learns the training data too well, capturing noise and anomalies instead of general patterns. This results in excellent training performance but poor generalization to new data.
+
+\subsection{Causes of Overfitting}
+\begin{itemize}
+    \item Using a model that is too complex relative to the problem.
+    \item Training too long without validation checks.
+    \item Having insufficient training data, leading to memorization rather than learning.
+    \item Presence of noise and irrelevant features in the dataset.
+\end{itemize}
+
+\subsection{Consequences of Overfitting}
+\begin{itemize}
+    \item High variance, causing large fluctuations in predictions for small input changes.
+    \item Poor performance on test and real-world data.
+    \item Inability to generalize beyond training data.
+\end{itemize}
+
+\subsection{Solutions to Overfitting}
+\begin{itemize}
+    \item Using regularization techniques (e.g., L1/L2 penalties, dropout in neural networks).
+    \item Increasing the size of the training dataset.
+    \item Employing cross-validation to monitor generalization ability.
+    \item Simplifying the model to reduce unnecessary complexity.
+\end{itemize}
+
+\section{Balancing Model Complexity}
+The ideal machine learning model strikes a balance between underfitting and overfitting. Methods such as cross-validation, regularization, and hyperparameter tuning help achieve this balance. Additionally, techniques like ensemble learning and transfer learning can enhance model generalization.
+
+\section{Conclusion}
+Underfitting and overfitting are crucial challenges in machine learning that impact model performance and generalization. Addressing these issues requires careful selection of model complexity, regularization, and appropriate data management techniques. By striking a balance, we can build robust models capable of making accurate predictions on unseen data.
+
+\end{document}
