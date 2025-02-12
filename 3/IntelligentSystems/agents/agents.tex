@@ -3,10 +3,9 @@
 \usepackage{graphicx}
 \usepackage{array}
 \usepackage{tabularx}
+\begin{document}
 \title{Agents and Environments in AI}
 \author{Manuel Mateo Delgado-Gambino López}
-\date{\today}
-\begin{document}
 \maketitle
 
 \section{Introduction}
@@ -25,10 +24,10 @@ Rationality differs from omniscience; the former uses available information, whi
 \section{Task Environments (PEAS Framework)}
 Task environments are defined via the \textbf{PEAS} framework:
 \begin{itemize}
-    \item \textbf{Performance}: Criteria for evaluating agent success.
-    \item \textbf{Environment}: Context in which the agent operates.
-    \item \textbf{Actuators}: Tools to execute actions.
-    \item \textbf{Sensors}: Mechanisms to perceive the environment.
+    \item \textbf{Performance}: Criteria for evaluating agent success based on the environment's objectives.
+    \item \textbf{Environment}: Context in which the agent operates (e.g., physical, virtual, social).
+    \item \textbf{Actuators}: Tools to execute actions in the environment.
+    \item \textbf{Sensors}: Mechanisms to perceive the environment and gather information.
 \end{itemize}
 
 \section{Environment Classification}
@@ -36,7 +35,7 @@ Environments are classified along seven dimensions:
 
 \subsection{Observability: Fully vs. Partially Observable}
 \begin{itemize}
-    \item \textbf{Fully Observable}: The agent’s sensors detect all relevant aspects needed for decision-making.
+    \item \textbf{Fully Observable}: The agent's sensors detect all relevant aspects needed for decision-making.
     \item \textbf{Partially Observable}: Some aspects remain unknown due to sensor limitations.
 \end{itemize}
 
@@ -52,7 +51,7 @@ Environments are classified along seven dimensions:
 
 \subsection{Determinism: Deterministic vs. Stochastic}
 \begin{itemize}
-    \item \textbf{Deterministic}: The next state is fully determined by the current state and the agent’s action.
+    \item \textbf{Deterministic}: The next state is fully determined by the current state and the agent's action.
     \item \textbf{Stochastic}: Outcomes involve probability, introducing uncertainty.
     \item \textbf{Non-Deterministic}: Multiple possible outcomes without explicit probabilities.
 \end{itemize}
@@ -78,8 +77,8 @@ Environments are classified along seven dimensions:
 
 \subsection{Known vs. Unknown}
 \begin{itemize}
-    \item \textbf{Known}: The agent understands the environment’s rules and dynamics.
-    \item \textbf{Unknown}: The agent must learn the environment’s behavior over time.
+    \item \textbf{Known}: The agent understands the environment's rules and dynamics.
+    \item \textbf{Unknown}: The agent must learn the environment's behavior over time.
 \end{itemize}
 
 \section{Agent Architectures}
@@ -102,5 +101,4 @@ Expressiveness increases from atomic to structured, but so does computational co
 
 \section{Conclusion}
 Understanding agents and environments is foundational to AI. Rational agents balance performance, knowledge, and uncertainty, while environment classifications (PEAS) guide system design. Advanced agent architectures and state representations enable sophisticated decision-making in real-world applications. Future work may focus on integrating multiple representations to enhance adaptability.
-
 \end{document}
