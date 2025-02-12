@@ -1,0 +1,106 @@
+\documentclass[conference]{IEEEtran}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{tabularx}
+\title{Agents and Environments in AI}
+\author{Manuel Mateo Delgado-Gambino López}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section{Introduction}
+An \textbf{agent} perceives its environment via \textbf{sensors} and acts through \textbf{actuators}. Its behavior is defined by an \textbf{agent function}, mapping \textbf{percept sequences} to actions. This function is implemented as an \textbf{agent program}, operating on current perceptions. Agents are characterized by their components: sensors, rules for decision-making, and actuators.
+
+\section{Rational Agents}
+A \textbf{rational agent} maximizes its \textbf{performance measure} by selecting actions that yield the best expected outcome, given its percept sequence and stored knowledge. Rationality depends on:
+\begin{itemize}
+    \item Performance measure (objective success criteria).
+    \item Accumulated environmental knowledge.
+    \item Available actions.
+    \item Percept sequence history.
+\end{itemize}
+Rationality differs from omniscience; the former uses available information, while the latter assumes perfect foresight. Rational agents may engage in \textbf{information gathering} (e.g., exploration) to reduce uncertainty.
+
+\section{Task Environments (PEAS Framework)}
+Task environments are defined via the \textbf{PEAS} framework:
+\begin{itemize}
+    \item \textbf{Performance}: Criteria for evaluating agent success.
+    \item \textbf{Environment}: Context in which the agent operates.
+    \item \textbf{Actuators}: Tools to execute actions.
+    \item \textbf{Sensors}: Mechanisms to perceive the environment.
+\end{itemize}
+
+\section{Environment Classification}
+Environments are classified along seven dimensions:
+
+\subsection{Observability: Fully vs. Partially Observable}
+\begin{itemize}
+    \item \textbf{Fully Observable}: The agent’s sensors detect all relevant aspects needed for decision-making.
+    \item \textbf{Partially Observable}: Some aspects remain unknown due to sensor limitations.
+\end{itemize}
+
+\subsection{Agents: Single-Agent vs. Multi-Agent}
+\begin{itemize}
+    \item \textbf{Single-Agent}: The agent operates alone without competition.
+    \item \textbf{Multi-Agent}: Multiple agents interact, which can be:
+    \begin{itemize}
+        \item \textbf{Competitive}: Opposing objectives (e.g., adversarial games).
+        \item \textbf{Cooperative}: Shared objectives (e.g., team-based tasks).
+    \end{itemize}
+\end{itemize}
+
+\subsection{Determinism: Deterministic vs. Stochastic}
+\begin{itemize}
+    \item \textbf{Deterministic}: The next state is fully determined by the current state and the agent’s action.
+    \item \textbf{Stochastic}: Outcomes involve probability, introducing uncertainty.
+    \item \textbf{Non-Deterministic}: Multiple possible outcomes without explicit probabilities.
+\end{itemize}
+
+\subsection{Episodic vs. Sequential}
+\begin{itemize}
+    \item \textbf{Episodic}: Each perception-action pair is independent of past and future interactions (e.g., image classification).
+    \item \textbf{Sequential}: Current actions affect future states, requiring long-term planning (e.g., chess playing).
+\end{itemize}
+
+\subsection{Dynamism: Static vs. Dynamic}
+\begin{itemize}
+    \item \textbf{Static}: The environment does not change while the agent deliberates.
+    \item \textbf{Dynamic}: The environment can change during decision-making.
+    \item \textbf{Semi-Dynamic}: The environment remains static, but time affects decision consequences.
+\end{itemize}
+
+\subsection{Discrete vs. Continuous}
+\begin{itemize}
+    \item \textbf{Discrete}: Finite states, actions, and time steps (e.g., turn-based games).
+    \item \textbf{Continuous}: Infinite states, actions, or real-time decision-making (e.g., robotic motion control).
+\end{itemize}
+
+\subsection{Known vs. Unknown}
+\begin{itemize}
+    \item \textbf{Known}: The agent understands the environment’s rules and dynamics.
+    \item \textbf{Unknown}: The agent must learn the environment’s behavior over time.
+\end{itemize}
+
+\section{Agent Architectures}
+Agents are categorized into four types, increasing in complexity:
+\begin{itemize}
+    \item \textbf{Simple Reflex}: Uses condition-action rules; limited to fully observable environments.
+    \item \textbf{Model-Based Reflex}: Maintains an internal \textbf{world model} to handle partial observability.
+    \item \textbf{Goal-Based}: Selects actions to achieve specific goals, requiring planning.
+    \item \textbf{Utility-Based}: Maximizes a \textbf{utility function}, enabling trade-offs between competing objectives.
+\end{itemize}
+
+\section{State Representations}
+Agents model environments using three representations:
+\begin{itemize}
+    \item \textbf{Atomic}: States as indivisible entities (e.g., cities in a route-planning problem).
+    \item \textbf{Factorized}: States decomposed into attributes (e.g., fuel level, GPS coordinates).
+    \item \textbf{Structured}: Entities with explicit relationships (e.g., relational databases).
+\end{itemize}
+Expressiveness increases from atomic to structured, but so does computational complexity.
+
+\section{Conclusion}
+Understanding agents and environments is foundational to AI. Rational agents balance performance, knowledge, and uncertainty, while environment classifications (PEAS) guide system design. Advanced agent architectures and state representations enable sophisticated decision-making in real-world applications. Future work may focus on integrating multiple representations to enhance adaptability.
+
+\end{document}

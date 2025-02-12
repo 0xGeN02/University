@@ -1,7 +1,7 @@
-PWD c:\Users\manue\University\3\IntelligentSystems
+PWD c:\Users\manue\University\3\IntelligentSystems\ai_introduction
 INPUT C:\Users\manue\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
-INPUT c:\Users\manue\University\3\IntelligentSystems\a.tex
-OUTPUT a.log
+INPUT c:\Users\manue\University\3\IntelligentSystems\ai_introduction\ai_introduction.tex
+OUTPUT ai_introduction.log
 INPUT C:\Users\manue\AppData\Local\Programs\MiKTeX\tex\latex\base\article.cls
 INPUT C:\Users\manue\AppData\Local\Programs\MiKTeX\tex\latex\base\article.cls
 INPUT C:\Users\manue\AppData\Local\Programs\MiKTeX\tex\latex\base\size10.clo
@@ -33,10 +33,10 @@ INPUT C:\Users\manue\AppData\Local\Programs\MiKTeX\tex\latex\graphics-def\pdftex
 INPUT C:\Users\manue\AppData\Local\Programs\MiKTeX\tex\latex\graphics-def\pdftex.def
 INPUT C:\Users\manue\AppData\Local\Programs\MiKTeX\tex\latex\l3backend\l3backend-pdftex.def
 INPUT C:\Users\manue\AppData\Local\Programs\MiKTeX\tex\latex\l3backend\l3backend-pdftex.def
-INPUT .\a.aux
-INPUT .\a.aux
-INPUT a.aux
-OUTPUT a.aux
+INPUT .\ai_introduction.aux
+INPUT .\ai_introduction.aux
+INPUT ai_introduction.aux
+OUTPUT ai_introduction.aux
 INPUT C:\Users\manue\AppData\Local\Programs\MiKTeX\tex\context\base\mkii\supp-pdf.mkii
 INPUT C:\Users\manue\AppData\Local\Programs\MiKTeX\tex\context\base\mkii\supp-pdf.mkii
 INPUT C:\Users\manue\AppData\Local\Programs\MiKTeX\tex\context\base\mkii\supp-pdf.mkii
@@ -64,9 +64,9 @@ INPUT C:\Users\manue\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr12.tfm
 INPUT C:\Users\manue\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx12.tfm
 INPUT C:\Users\manue\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\tcrm1000.tfm
 INPUT C:\Users\manue\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx10.tfm
-OUTPUT a.pdf
+OUTPUT ai_introduction.pdf
 INPUT C:\Users\manue\AppData\Local\MiKTeX\fonts\map\pdftex\pdftex.map
-INPUT a.aux
+INPUT ai_introduction.aux
 INPUT C:\Users\manue\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm1000.pk
 INPUT C:\Users\manue\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm1000.pk
 INPUT C:\Users\manue\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx10.pfb

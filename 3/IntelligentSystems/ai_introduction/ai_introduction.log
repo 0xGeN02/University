@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2025.1.22)  22 JAN 2025 18:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2025.1.22)  12 FEB 2025 15:45
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**c:/Users/manue/University/3/IntelligentSystems/a.tex
-(c:/Users/manue/University/3/IntelligentSystems/a.tex
+**c:/Users/manue/University/3/IntelligentSystems/ai_introduction/ai_introduction.tex
+(c:/Users/manue/University/3/IntelligentSystems/ai_introduction/ai_introduction.tex
 LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-12-25>
 (C:\Users\manue\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
@@ -109,8 +109,8 @@ File: pdftex.def 2024/04/13 v1.2c Graphics/color driver for pdftex
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count282
 \l__pdf_internal_box=\box54
-) (a.aux)
-\openout1 = `a.aux'.
+) (ai_introduction.aux)
+\openout1 = `ai_introduction.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 5.
 LaTeX Font Info:    ... okay on input line 5.
@@ -157,7 +157,9 @@ Overfull \hbox (3.98004pt too wide) in paragraph at lines 63--64
 
 
 
-[3] (a.aux)
+[3]
+
+[4] (ai_introduction.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-12-25>
@@ -165,16 +167,16 @@ L3 programming layer <2024-12-25>
  ) 
 Here is how much of TeX's memory you used:
  2016 strings out of 473536
- 30976 string characters out of 5714956
- 426322 words of memory out of 5000000
+ 31270 string characters out of 5714956
+ 426350 words of memory out of 5000000
  25250 multiletter control sequences out of 15000+600000
  564401 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,6n,65p,537b,199s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,6n,65p,567b,199s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\manue\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1000.pk><C:/Users/manue/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/manue/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/manue/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx9.pfb><C:/Users/manue/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/manue/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/manue/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/manue/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb>
-Output written on a.pdf (3 pages, 111054 bytes).
+Output written on ai_introduction.pdf (4 pages, 111926 bytes).
 PDF statistics:
- 52 PDF objects out of 1000 (max. 8388607)
+ 55 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
