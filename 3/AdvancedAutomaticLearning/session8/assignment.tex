@@ -4,87 +4,83 @@
 \usepackage[english]{babel}
 \usepackage{amsmath, amssymb}
 \usepackage{cite}
+\usepackage{url}
 
-\begin{document}
-
-\title{Summary of A3C and TRPO in Reinforcement Learning \\ (IEEE LaTeX Format)}
-\author{\IEEEauthorblockN{Your Name}
-\IEEEauthorblockA{Your Affiliation\\
-Email: your.email@example.com}}
+\title{Theoretical Foundations of A3C and TRPO in Reinforcement Learning}
+\author{\IEEEauthorblockN{Manuel Mateo Delgado-Gambino Lopez}
+\IEEEauthorblockA{Advanced Automatic Learning\\
+UIE\\
+Email: manuel.delgado\_gambino.01@uie.edu}}
 \maketitle
 
 \begin{abstract}
-This document presents a concise summary of the key mathematical functions and equations for two reinforcement learning algorithms: Asynchronous Advantage Actor-Critic (A3C) and Trust Region Policy Optimization (TRPO). The document is formatted in IEEE LaTeX style, so you can easily copy and paste the code into your project.
+This paper systematically reviews the mathematical foundations of two advanced reinforcement learning algorithms: Asynchronous Advantage Actor-Critic (A3C) and Trust Region Policy Optimization (TRPO). We present formal derivations of their key equations, including policy gradient updates and trust region constraints, while emphasizing their theoretical guarantees and practical implementations. Formatted in IEEE LaTeX style, this work serves as a concise reference for researchers and practitioners implementing modern policy optimization techniques.
 \end{abstract}
 
 \IEEEpeerreviewmaketitle
 
 \section{Introduction}
-This document provides a brief overview of two important reinforcement learning methods:
+Modern reinforcement learning (RL) has witnessed significant advancements through policy gradient methods that balance exploration and convergence guarantees. Two pivotal algorithms in this domain are:
+
 \begin{itemize}
-    \item \textbf{A3C (Asynchronous Advantage Actor-Critic)}: An actor-critic method that leverages multiple parallel agents running on separate threads to asynchronously update a shared global network. Each agent interacts with its own copy of the environment, reducing sample correlation and improving exploration.
-    \item \textbf{TRPO (Trust Region Policy Optimization)}: A policy gradient method that restricts policy updates by imposing a trust region constraint based on the Kullback-Leibler (KL) divergence. This constraint ensures that each update leads to a monotonic improvement in the policy.
+    \item \textbf{A3C (Asynchronous Advantage Actor-Critic)}: A distributed framework leveraging parallel actors to decorrelate samples and accelerate learning through asynchronous updates \cite{weng2018policy}. Combines value function estimation with policy optimization through advantage-weighted updates.
+    \item \textbf{TRPO (Trust Region Policy Optimization)}: A theoretically grounded approach ensuring monotonic policy improvement via constrained optimization over a trust region \cite{weng2018policy}. Addresses the challenge of destructive policy updates through KL-divergence constraints.
 \end{itemize}
 
-\section{A3C}
-\subsection{n-step Advantage Function}
-The advantage function in A3C is defined as:
-\begin{equation}
-A(s_t, a_t; \theta, \theta_v) = \sum_{i=0}^{k-1} \gamma^i\, r_{t+i} + \gamma^k\, V(s_{t+k}; \theta_v) - V(s_t; \theta_v)
-\end{equation}
-where \( \gamma \) is the discount factor, \( r_{t+i} \) is the reward at time \( t+i \), \( V(s;\theta_v) \) is the value function approximation, and \( k \) is the number of steps.
+This work contributes a unified mathematical presentation of these algorithms' core components, facilitating comparative analysis and implementation.
 
-\subsection{Policy Gradient Update}
-The policy gradient update is computed as:
-\begin{equation}
-\nabla_{\theta} \log \pi(a_t \mid s_t; \theta)\, A(s_t, a_t; \theta, \theta_v)
-\end{equation}
+\section{Asynchronous Advantage Actor-Critic (A3C)}
+\subsection{Architectural Overview}
+A3C employs multiple parallel agents interacting with environment instances, asynchronously updating a global network. This parallelism achieves data efficiency while maintaining diversity in experience sampling.
 
-\subsection{Entropy Regularization Term}
-To encourage exploration, an entropy regularization term is added to the policy loss:
+\subsection{n-Step Advantage Estimation}
+The advantage function estimates the relative value of actions using temporal difference learning over $k$ steps:
 \begin{equation}
-\nabla_{\theta} H\big(\pi(\cdot \mid s_t; \theta)\big)
+A(s_t, a_t; \theta, \theta_v) = \sum_{i=0}^{k-1} \gamma^i r_{t+i} + \gamma^k V(s_{t+k}; \theta_v) - V(s_t; \theta_v)
 \end{equation}
-where the entropy is defined by:
+where $\gamma \in [0,1]$ is the discount factor, $V(s;\theta_v)$ denotes the value function parameterized by $\theta_v$, and $k$ governs the bias-variance tradeoff.
+
+\subsection{Policy Gradient Optimization}
+The policy parameters $\theta$ are updated using advantage-weighted gradient ascent:
 \begin{equation}
-H\big(\pi(\cdot \mid s_t; \theta)\big) = -\sum_{a} \pi(a \mid s_t; \theta) \log \pi(a \mid s_t; \theta)
+\nabla_{\theta} \mathcal{L}_{\text{policy}} = \mathbb{E}\left[\nabla_{\theta} \log \pi(a_t | s_t; \theta) A(s_t, a_t; \theta, \theta_v)\right]
 \end{equation}
 
-\section{TRPO}
-\subsection{Surrogate Objective Function}
-The surrogate objective function is defined as:
+\subsection{Entropy Regularization}
+To prevent premature convergence, entropy regularization encourages exploration:
 \begin{equation}
-L_{\pi_{\text{old}}}(\pi) = \eta(\pi_{\text{old}}) + \sum_{s} \rho_{\pi_{\text{old}}}(s) \sum_{a} \pi(a \mid s)\, A_{\pi_{\text{old}}}(s,a)
+\mathcal{L}_{\text{entropy}} = \beta \mathbb{E}\left[H(\pi(\cdot|s_t; \theta))\right]
 \end{equation}
-where:
-\begin{itemize}
-    \item \( \eta(\pi_{\text{old}}) \) is the expected return under the old policy.
-    \item \( \rho_{\pi_{\text{old}}}(s) \) is the (unnormalized) discounted visitation frequency of state \( s \) under the old policy.
-    \item \( A_{\pi_{\text{old}}}(s,a) \) is the advantage computed with the old policy.
-\end{itemize}
+where $\beta$ controls regularization strength and entropy $H$ is:
+\begin{equation}
+H(\pi) = -\sum_{a \in \mathcal{A}} \pi(a|s_t; \theta) \log \pi(a|s_t; \theta)
+\end{equation}
 
-\subsection{Trust Region Constraint (KL-Divergence)}
-TRPO constrains the update by enforcing a limit on the average KL divergence between the old and new policies:
+\section{Trust Region Policy Optimization (TRPO)}
+\subsection{Constrained Policy Improvement}
+TRPO maximizes a surrogate objective $\eta(\pi)$ while constraining policy divergence:
 \begin{equation}
-\bar{D}_{KL}(\pi_{\text{old}}, \pi) = \mathbb{E}_{s\sim \rho_{\pi_{\text{old}}}}\left[D_{KL}\big(\pi_{\text{old}}(\cdot \mid s) \,\|\, \pi(\cdot \mid s)\big)\right] \leq \delta,
+\max_{\pi} \mathbb{E}_{s \sim \rho_{\pi_{\text{old}}}, a \sim \pi_{\text{old}}} \left[\frac{\pi(a|s)}{\pi_{\text{old}}(a|s)} A_{\pi_{\text{old}}}(s,a)\right]
 \end{equation}
-where \( \delta \) is the trust region limit.
+subject to:
+\begin{equation}
+\mathbb{E}_{s \sim \rho_{\pi_{\text{old}}}}\left[D_{KL}(\pi_{\text{old}}(\cdot|s) \parallel \pi(\cdot|s))\right] \leq \delta
+\end{equation}
+where $\delta$ is the trust region radius.
 
-\subsection{Natural Policy Gradient Update}
-The policy update is computed using a natural policy gradient step:
+\subsection{Natural Policy Gradient}
+TRPO approximates the natural gradient using conjugate gradient descent with Fisher information matrix $F$:
 \begin{equation}
-\theta_{\text{new}} = \theta_{\text{old}} + \sqrt{\frac{2\delta}{g^T H^{-1} g}}\, H^{-1} g,
+\theta_{k+1} = \theta_k + \alpha F^{-1}(\theta_k) \nabla_\theta \eta(\pi)
 \end{equation}
-where:
-\begin{itemize}
-    \item \( g = \nabla_\theta L_{\pi_{\text{old}}}(\pi)\big|_{\theta=\theta_{\text{old}}} \) is the gradient of the surrogate objective evaluated at the old policy.
-    \item \( H \) is the Fisher information matrix (approximating the Hessian of the KL divergence).
-\end{itemize}
+where $\alpha = \sqrt{\frac{2\delta}{\nabla_\theta \eta(\pi)^T F^{-1} \nabla_\theta \eta(\pi)}}$ adapts the step size.
+
+\section{Comparative Analysis}
+A3C provides practical advantages through distributed sampling and empirical stability, while TRPO offers strong convergence guarantees via constrained optimization. The former excels in diverse environments requiring exploration, whereas the latter is preferred in safety-critical applications needing update stability.
 
 \section{Conclusion}
-This document has presented the key equations and functions for the A3C and TRPO algorithms in reinforcement learning, formatted in IEEE LaTeX style. You can use this document as a basis for further study or implementation.
+This work formalizes the mathematical underpinnings of A3C and TRPO, two cornerstone algorithms in modern reinforcement learning. By presenting their objective functions, constraints, and update rules within a unified framework, we enable systematic comparison and informed algorithm selection. Future extensions could incorporate proximal policy optimization (PPO) and distributed TRPO variants.
 
 \bibliographystyle{IEEEtran}
-\bibliography{references} % Create your references.bib file with your citations
-
+\bibliography{references}
 \end{document}
