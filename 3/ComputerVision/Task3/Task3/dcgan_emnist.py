@@ -4,8 +4,8 @@
 # import the necessary packages
 from dcgan import DCGAN
 from callback import GANMonitor
-from models import get_generator
-from models import get_discriminator
+from model import get_generator
+from model import get_discriminator
 from tensorflow.keras.losses import BinaryCrossentropy
 from tensorflow.keras.initializers import RandomNormal
 from tensorflow.keras.optimizers import Adam
