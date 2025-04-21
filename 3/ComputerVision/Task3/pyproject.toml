@@ -1,0 +1,19 @@
+[project]
+name = "task3"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "0xGeN02",email = "manuelmateodgl02@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "tensorflow (>=2.19.0,<3.0.0)",
+    "matplotlib (>=3.10.1,<4.0.0)",
+    "tensorflow-datasets (>=4.9.8,<5.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
