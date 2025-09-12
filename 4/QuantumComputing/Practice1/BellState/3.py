@@ -1,0 +1,24 @@
+"""
+    3rd State of Bell (|Ψ⁺⟩)
+    
+    In this state, both qubits are entangled and have opposite values.
+    The state can be represented as:
+    |Ψ⁺⟩ = (|01⟩ + |10⟩) / √2
+"""
+from pyquil import Program, get_qc
+from pyquil.gates import H, X, CNOT, MEASURE
+from pyquil.quilbase import Declare
+
+prog = Program(
+    Declare("ro", "BIT", 2),
+    H(0),        # Hadamard para crear superposición
+    X(1),        # X en qubit 1 para obtener estados |01⟩ y |10⟩
+    CNOT(0, 1),  # CNOT para entrelazar
+    MEASURE(0, ("ro", 0)),
+    MEASURE(1, ("ro", 1))
+).wrap_in_numshots_loop(100)
+
+qvm = get_qc("9q-square-qvm")
+result = qvm.run(qvm.compile(prog)).get_register_map().get("ro")
+for r in result:
+    print(r)

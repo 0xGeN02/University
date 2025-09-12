@@ -1,4 +1,4 @@
-from pyquil import Program, get_qc
+from pyquil import Program
 from pyquil.gates import I
 from pyquil.api import WavefunctionSimulator
 
