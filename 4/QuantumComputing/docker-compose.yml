@@ -1,0 +1,16 @@
+services:
+  quilc:
+    image: rigetti/quilc:latest
+    command: ["-P", "-S"]
+    ports:
+      - "5555:5555"
+    restart: unless-stopped
+
+  qvm:
+    image: rigetti/qvm:latest
+    command: ["-S"]
+    ports:
+      - "5000:5000"   # host:container (cambié a 5001 para evitar conflicto con tu puerto 5000 ocupado)
+    restart: unless-stopped
+    depends_on:
+      - quilc

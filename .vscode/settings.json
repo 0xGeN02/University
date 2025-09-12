@@ -1,3 +1,4 @@
 {
-    "aspLanguage.setConfig": "config.json"
+    "aspLanguage.setConfig": "config.json",
+    "python-envs.pythonProjects": []
 }
