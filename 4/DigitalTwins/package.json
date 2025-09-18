@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "node-red-contrib-influxdb": "^0.7.0"
+  }
+}

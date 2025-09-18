@@ -2,7 +2,7 @@ import paho.mqtt.client as mqtt
 import time, random
 
 # Conexión al broker
-client = mqtt.Client()
+client = mqtt.Client(protocol=mqtt.MQTTv311)
 client.connect("localhost", 1883, 60)
 
 while True:
